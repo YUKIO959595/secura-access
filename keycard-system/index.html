@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Professional Secure Access Control System - Manage digital and physical access for properties">
+    <meta name="keywords" content="secure access, access control, property management, RFID, SecurAccess">
+    <meta name="theme-color" content="#87ceeb">
+    <title>SecurAccess - Secure Access Control System</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/landing.css">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/logo.jpg" alt="SecurAccess Logo" class="logo-icon">
+                <span class="logo-text">SecurAccess</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#contact" class="nav-link">Contact</a>
+                <button class="nav-btn btn-login" onclick="scrollToApp()">Get Started</button>
+            </div>
+            <div class="hamburger" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">Secure Access Control Made Simple</h1>
+            <p class="hero-subtitle">Professional keycard management system for modern properties</p>
+            <button class="btn btn-hero" onclick="scrollToApp()">Start Now</button>
+        </div>
+        <div class="hero-illustration">
+            <div class="hero-icon">🏢</div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <h2>Why Choose SecurAccess?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔑</div>
+                <h3>Digital Keycards</h3>
+                <p>Manage physical and digital keycards for all units with ease</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Real-time Tracking</h3>
+                <p>Monitor access logs and track all keycard activities instantly</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Multi-user Management</h3>
+                <p>Support for landlords and tenants with role-based access</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3>Secure & Encrypted</h3>
+                <p>Enterprise-grade security with Firebase authentication</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Mobile Friendly</h3>
+                <p>Works perfectly on smartphones, tablets, and desktops</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Fast & Reliable</h3>
+                <p>Cloud-based system with 99.9% uptime guarantee</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="about-content">
+            <h2>About SecurAccess</h2>
+            <p>SecurAccess is a modern, cloud-based access control system designed specifically for property managers and landlords. Our platform simplifies secure access management while maintaining the highest security standards.</p>
+            <p>Whether you manage a single property or multiple buildings, SecurAccess provides the tools you need to maintain secure access and track activities in real-time.</p>
+        </div>
+    </section>
+
+    <!-- Application Container -->
+    <section id="app-section" class="app-section">
+        <h2>Login to Your Account</h2>
+        
+        <div class="app-container">
+            <!-- Welcome Screen -->
+            <div id="welcomeScreen" class="welcome-screen screen-active">
+                <div class="logo-container">
+                    <img src="assets/logo.jpg" alt="SecurAccess Logo" class="app-logo-img" style="width: 80px; height: 80px; border-radius: 10px;">
+                </div>
+                <h2>Welcome to SecurAccess</h2>
+                <p class="role-select-text">Select your role to continue</p>
+                <div class="button-group">
+                    <button class="btn btn-primary" onclick="showScreen('landlordScreen')">
+                        <span class="btn-icon">👨‍💼</span>
+                        Landlord/Admin
+                    </button>
+                    <button class="btn btn-secondary" onclick="showScreen('tenantScreen')">
+                        <span class="btn-icon">👤</span>
+                        Tenant
+                    </button>
+                </div>
+            </div>
+
+            <!-- Landlord Login Screen -->
+            <div id="landlordScreen" class="login-container screen-hidden">
+                <div class="logo-container">
+                    <img src="assets/logo.jpg" alt="SecurAccess Logo" class="app-logo-img" style="width: 80px; height: 80px; border-radius: 10px;">
+                </div>
+                <h2>Landlord/Admin Login</h2>
+                <form id="landlordLoginForm">
+                    <div class="form-group">
+                        <label for="landlordEmail">Email</label>
+                        <input type="email" id="landlordEmail" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="landlordPassword">Password</label>
+                        <input type="password" id="landlordPassword" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="landlordRememberMe"> Remember Me
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    <div id="landlordError" class="error-message"></div>
+                </form>
+                <button class="back-link-btn" onclick="showScreen('welcomeScreen')">← Back to Home</button>
+            </div>
+
+            <!-- Tenant Login Screen -->
+            <div id="tenantScreen" class="login-container screen-hidden">
+                <div class="logo-container">
+                    <img src="assets/logo.jpg" alt="SecurAccess Logo" class="app-logo-img" style="width: 80px; height: 80px; border-radius: 10px;">
+                </div>
+                <h2>Tenant Login</h2>
+                <form id="tenantLoginForm">
+                    <div class="form-group">
+                        <label for="tenantEmailLogin">Email</label>
+                        <input type="email" id="tenantEmailLogin" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="tenantPasswordLogin">Password</label>
+                        <input type="password" id="tenantPasswordLogin" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label>
+                            <input type="checkbox" id="tenantRememberMe"> Remember Me (Auto Login)
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full">Login</button>
+                    <div id="tenantError" class="error-message"></div>
+                </form>
+                <div class="forgot-password-section">
+                    <button type="button" class="btn btn-secondary btn-forgot" id="forgotPasswordBtn">Forgot Password?</button>
+                </div>
+                <p class="signup-link">Don't have an account yet? <button class="link-btn" onclick="showScreen('tenantSignupScreen')">Sign up here</button></p>
+                <button class="back-link-btn" onclick="showScreen('welcomeScreen')">← Back to Home</button>
+            </div>
+
+            <!-- Tenant Signup Screen -->
+            <div id="tenantSignupScreen" class="signup-container screen-hidden">
+                <div class="logo-container">
+                    <img src="assets/logo.jpg" alt="SecurAccess Logo" class="app-logo-img" style="width: 80px; height: 80px; border-radius: 10px;">
+                </div>
+                <h2>Create Tenant Account</h2>
+                <form id="tenantSignupForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tenantName">Full Name *</label>
+                            <input type="text" id="tenantName" required placeholder="John Doe">
+                        </div>
+                        <div class="form-group">
+                            <label for="tenantEmail">Email *</label>
+                            <input type="email" id="tenantEmail" required placeholder="your@email.com">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tenantPassword">Password *</label>
+                            <input type="password" id="tenantPassword" required minlength="6" placeholder="Min. 6 characters">
+                        </div>
+                        <div class="form-group">
+                            <label for="tenantPhone">Phone Number *</label>
+                            <input type="tel" id="tenantPhone" required placeholder="(555) 123-4567">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tenantUnit">Unit Number *</label>
+                            <input type="text" id="tenantUnit" required placeholder="101">
+                        </div>
+                        <div class="form-group">
+                            <label for="tenantResidents">Number of Residents *</label>
+                            <input type="number" id="tenantResidents" required min="1" placeholder="2">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tenantKeycards">Keycards Needed *</label>
+                            <input type="number" id="tenantKeycards" required min="1" placeholder="1">
+                        </div>
+                        <div class="form-group">
+                            <label for="tenantAddress">Address *</label>
+                            <input type="text" id="tenantAddress" required placeholder="123 Main Street">
+                        </div>
+                    </div>
+                    
+                    <div class="agreement-section">
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="agreeTerms" required>
+                                I agree to the <a href="terms.html" target="_blank">Terms and Conditions</a>
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="agreePrivacy" required>
+                                I agree to the <a href="privacy.html" target="_blank">Privacy Agreement</a>
+                            </label>
+                        </div>
+                        <div class="form-group checkbox-group">
+                            <label>
+                                <input type="checkbox" id="tenantRememberMeSignup">
+                                Remember Me (Auto Login)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-full">Create Account</button>
+                    <div id="tenantSignupError" class="error-message"></div>
+                    <div id="tenantSignupSuccess" class="success-message"></div>
+                </form>
+                <p class="signup-link">Already have an account? <button class="link-btn" onclick="showScreen('tenantScreen')">Login here</button></p>
+                <button class="back-link-btn" onclick="showScreen('welcomeScreen')">← Back to Home</button>
+            </div>
+
+            <!-- Forgot Password Modal -->
+            <div id="forgotPasswordModal" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Reset Password</h2>
+                        <button type="button" class="modal-close" id="closeModal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Enter your email address and we'll send you a password reset link.</p>
+                        <div class="form-group">
+                            <label for="resetEmail">Email Address</label>
+                            <input type="email" id="resetEmail" placeholder="Enter your email" required>
+                        </div>
+                        <div id="resetMessage" class="reset-message"></div>
+                        <div class="modal-actions">
+                            <button type="button" class="btn btn-primary" id="sendResetBtn">Send Reset Link</button>
+                            <button type="button" class="btn btn-secondary" id="cancelResetBtn">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <h2>Get in Touch</h2>
+        <p>Have questions? We're here to help!</p>
+        <div class="contact-info">
+            <div class="contact-item">
+                <span class="contact-icon">📧</span>
+                <p><strong>Email:</strong> support@keycard.pro</p>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">📞</span>
+                <p><strong>Phone:</strong> 1-800-KEYCARD</p>
+            </div>
+            <div class="contact-item">
+                <span class="contact-icon">💬</span>
+                <p><strong>Support:</strong> 24/7 Customer Service</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="contact.html">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">LinkedIn</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 SecurAccess. All rights reserved. | Secure Access Control System</p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/firebase-config.js"></script>
+    <script type="module" src="js/landlord-auth.js"></script>
+    <script type="module" src="js/tenant-auth.js"></script>
+    <script>
+        // Screen navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('[id$="Screen"]').forEach(screen => {
+                screen.classList.remove('screen-active');
+                screen.classList.add('screen-hidden');
+            });
+
+            const screen = document.getElementById(screenId);
+            if (screen) {
+                screen.classList.remove('screen-hidden');
+                screen.classList.add('screen-active');
+            }
+        }
+
+        // Smooth scroll to app section
+        function scrollToApp() {
+            const appSection = document.getElementById('app-section');
+            appSection.scrollIntoView({ behavior: 'smooth' });
+            showScreen('welcomeScreen');
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const navMenu = document.querySelector('.nav-menu');
+            navMenu.classList.toggle('active');
+        }
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.remove('active');
+            });
+        });
+
+        // Forgot password modal controls
+        document.addEventListener('DOMContentLoaded', function() {
+            const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+            const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+            const closeModal = document.getElementById('closeModal');
+            const cancelResetBtn = document.getElementById('cancelResetBtn');
+
+            if (forgotPasswordBtn) {
+                forgotPasswordBtn.addEventListener('click', function() {
+                    forgotPasswordModal.style.display = 'flex';
+                });
+            }
+
+            if (closeModal) {
+                closeModal.addEventListener('click', function() {
+                    forgotPasswordModal.style.display = 'none';
+                });
+            }
+
+            if (cancelResetBtn) {
+                cancelResetBtn.addEventListener('click', function() {
+                    forgotPasswordModal.style.display = 'none';
+                });
+            }
+
+            window.addEventListener('click', function(event) {
+                if (event.target === forgotPasswordModal) {
+                    forgotPasswordModal.style.display = 'none';
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
