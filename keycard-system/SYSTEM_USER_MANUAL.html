@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecurAccess - Complete System User Manual</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4682b4 0%, #87ceeb 100%);
+            color: white;
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        .toc {
+            background: #f5f5f5;
+            padding: 30px 20px;
+            border-top: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .toc h2 {
+            color: #4682b4;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .toc ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 30px;
+        }
+
+        .toc li {
+            margin: 8px 0;
+            color: #666;
+        }
+
+        .toc a {
+            color: #4682b4;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4682b4;
+        }
+
+        .section h3 {
+            color: #555;
+            font-size: 20px;
+            margin-top: 25px;
+            margin-bottom: 12px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-left: 0;
+            margin-bottom: 20px;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #4682b4;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .info-box {
+            background: #e8f4f8;
+            border-left: 4px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: #4682b4;
+        }
+
+        .step-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: #4682b4;
+            color: white;
+            text-align: center;
+            line-height: 36px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .role-section {
+            background: linear-gradient(135deg, rgba(70, 130, 180, 0.1) 0%, rgba(135, 206, 235, 0.1) 100%);
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #4682b4;
+            margin-bottom: 25px;
+        }
+
+        .role-section h3 {
+            margin-top: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #4682b4;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-primary {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .page-break {
+            page-break-after: always;
+            margin: 40px 0;
+            padding-top: 40px;
+            border-top: 2px solid #ddd;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 22px;
+            }
+
+            .toc ul {
+                columns: 1;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 SecurAccess</h1>
+            <p>Complete System User Manual & Administrator Guide</p>
+        </div>
+
+        <div class="toc">
+            <h2>📋 Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">System Overview</a></li>
+                <li><a href="#features">Key Features</a></li>
+                <li><a href="#getting-started">Getting Started</a></li>
+                <li><a href="#tenant-guide">Tenant Guide</a></li>
+                <li><a href="#landlord-guide">Landlord/Admin Guide</a></li>
+                <li><a href="#technical-specs">Technical Specifications</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#faq">FAQ</a></li>
+            </ul>
+        </div>
+
+        <div class="content">
+            <!-- SYSTEM OVERVIEW -->
+            <div class="section" id="overview">
+                <h2>📊 System Overview</h2>
+                <p>SecurAccess is a modern, cloud-based access control system designed for properties with multiple units. It combines RFID keycard technology with real-time monitoring to provide secure, efficient access management for both residents and property managers.</p>
+
+                <h3>System Components</h3>
+                <ul class="feature-list">
+                    <li><strong>RFID Reader Devices:</strong> IoT-enabled scanners at entry points</li>
+                    <li><strong>Electronic Lock Control:</strong> Servo-controlled magnetic locks</li>
+                    <li><strong>Live Camera Feed:</strong> Real-time CCTV monitoring with PIN verification</li>
+                    <li><strong>Cloud Database:</strong> Firebase for real-time data synchronization</li>
+                    <li><strong>Web Dashboard:</strong> Responsive interface for both tenants and landlords</li>
+                    <li><strong>Mobile-Friendly Design:</strong> Works on desktop, tablet, and smartphone</li>
+                </ul>
+
+                <h3>How It Works</h3>
+                <p>When a tenant scans their RFID keycard at the reader:</p>
+                <ol style="margin-left: 20px; color: #666;">
+                    <li>The reader transmits the card's unique ID to the system</li>
+                    <li>The system verifies the card against the database</li>
+                    <li>If valid, the lock activates and the door opens for 10 seconds</li>
+                    <li>Access is logged in real-time with timestamp and apartment details</li>
+                    <li>Both tenant and landlord can view the access record immediately</li>
+                </ol>
+            </div>
+
+            <!-- KEY FEATURES -->
+            <div class="section" id="features">
+                <h2>✨ Key Features</h2>
+
+                <h3>For All Users</h3>
+                <ul class="feature-list">
+                    <li>Secure email/password authentication</li>
+                    <li>Real-time access monitoring and notifications</li>
+                    <li>Cloud-based system with enterprise-grade encryption</li>
+                    <li>Mobile-responsive interface</li>
+                    <li>Automatic session management with secure logout</li>
+                </ul>
+
+                <h3>For Tenants</h3>
+                <ul class="feature-list">
+                    <li>View complete RFID access history</li>
+                    <li>Monitor access statistics (total, today's count, last access)</li>
+                    <li>Manage digital keycard requests</li>
+                    <li>Edit and update profile information</li>
+                    <li>Track lock status with 10-second unlock animation</li>
+                    <li>Filter access records by date</li>
+                </ul>
+
+                <h3>For Landlords/Admins</h3>
+                <ul class="feature-list">
+                    <li>Approve/deny tenant profile change requests</li>
+                    <li>Manage keycard requests and deactivation</li>
+                    <li>View all tenants and their details</li>
+                    <li>Monitor live camera feeds with PIN verification</li>
+                    <li>Manage camera access permissions by tenant</li>
+                    <li>View comprehensive RFID access logs for all apartments</li>
+                    <li>Filter access logs by apartment and date</li>
+                </ul>
+            </div>
+
+            <!-- GETTING STARTED -->
+            <div class="section" id="getting-started">
+                <h2>🚀 Getting Started</h2>
+
+                <h3>First Login</h3>
+                <div class="step-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span class="step-number">1</span>
+                        <strong>Navigate to the Login Page</strong>
+                    </div>
+                    <p style="margin-left: 48px; color: #666;">Open your browser and go to the SecurAccess landing page</p>
+                </div>
+
+                <div class="step-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span class="step-number">2</span>
+                        <strong>Select Your Role</strong>
+                    </div>
+                    <p style="margin-left: 48px; color: #666;">Click either "Landlord/Admin" or "Tenant" to proceed</p>
+                </div>
+
+                <div class="step-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span class="step-number">3</span>
+                        <strong>Enter Your Credentials</strong>
+                    </div>
+                    <p style="margin-left: 48px; color: #666;">Input your email and password. For new tenants, click "Sign up here" instead</p>
+                </div>
+
+                <div class="step-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span class="step-number">4</span>
+                        <strong>Enable Auto-Login (Optional)</strong>
+                    </div>
+                    <p style="margin-left: 48px; color: #666;">Check "Remember Me" to automatically log in on future visits</p>
+                </div>
+
+                <div class="step-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                        <span class="step-number">5</span>
+                        <strong>Access Your Dashboard</strong>
+                    </div>
+                    <p style="margin-left: 48px; color: #666;">You'll be directed to your personalized dashboard</p>
+                </div>
+            </div>
+
+            <!-- TENANT GUIDE -->
+            <div class="section" id="tenant-guide">
+                <h2>👤 Tenant User Guide</h2>
+
+                <h3>Dashboard Navigation</h3>
+                <p>Your tenant dashboard contains four main sections:</p>
+
+                <div class="role-section">
+                    <h3>1. RFID Access Track Record</h3>
+                    <p>View all your access attempts with real-time status updates.</p>
+                    <p><strong>What you'll see:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li><strong>Statistics Cards:</strong> Total Access Count, Today's Access, Last Access Time</li>
+                        <li><strong>Access History Table:</strong> Detailed list of all scans with timestamps and lock status</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>Lock Status Indicator:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>🔓 <span style="color: #2ecc71;">Unlocked</span> - Access granted for 10 seconds (then automatically locks)</li>
+                        <li>🔒 <span style="color: #ff9800;">Locked</span> - Access was restricted after the unlock period</li>
+                        <li>🚫 <span style="color: #e74c3c;">Denied</span> - Access attempt was rejected</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>2. Keycard Management</h3>
+                    <p>Manage your digital keycard and request new ones.</p>
+                    <p><strong>Actions:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li><strong>Request Keycard:</strong> Submit a request for a new digital keycard</li>
+                        <li><strong>Deactivate Keycard:</strong> Disable your current keycard (requires landlord approval)</li>
+                        <li><strong>Track Status:</strong> Monitor approval status of your requests</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>3. Profile Management</h3>
+                    <p>Update your personal information and preferences.</p>
+                    <p><strong>Available Fields:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Full Name</li>
+                        <li>Email Address</li>
+                        <li>Phone Number</li>
+                        <li>Unit/Apartment Number</li>
+                        <li>Move-in Date</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>How to Update:</strong></p>
+                    <ol style="margin-left: 20px; color: #666;">
+                        <li>Click "Edit Profile" button</li>
+                        <li>Update desired information</li>
+                        <li>Click "Submit Changes" to send for approval</li>
+                        <li>Landlord will review and approve/reject</li>
+                    </ol>
+                </div>
+
+                <div class="role-section">
+                    <h3>4. Apartment Camera Access</h3>
+                    <p>View live camera feed of your apartment entrance.</p>
+                    <p><strong>Requirements:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Landlord must grant you camera access</li>
+                        <li>Enter your apartment number and PIN</li>
+                        <li>System verifies credentials before streaming</li>
+                    </ul>
+                </div>
+
+                <h3>Common Tenant Tasks</h3>
+
+                <h4>Task: Request a New Keycard</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Go to "Keycard Management" section</li>
+                        <li>Click "Request Keycard" button</li>
+                        <li>Select replacement reason from dropdown</li>
+                        <li>Submit the request</li>
+                        <li>Wait for landlord approval (usually 24-48 hours)</li>
+                    </ol>
+                </div>
+
+                <h4>Task: Check Your Access History</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Click "RFID Track Record" in the sidebar</li>
+                        <li>Review the statistics cards for quick stats</li>
+                        <li>Browse the access history table</li>
+                        <li>Use date filter to find specific records (optional)</li>
+                    </ol>
+                </div>
+
+                <h4>Task: Watch Live Camera Feed</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Click "Apartment Camera Access" in the sidebar</li>
+                        <li>Select your apartment from the buttons</li>
+                        <li>Enter your PIN code</li>
+                        <li>Click "VERIFY" to access the live feed</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- LANDLORD GUIDE -->
+            <div class="section" id="landlord-guide">
+                <h2>👨‍💼 Landlord/Admin User Guide</h2>
+
+                <h3>Dashboard Navigation</h3>
+                <p>Your landlord dashboard provides comprehensive management tools:</p>
+
+                <div class="role-section">
+                    <h3>1. Pending Approvals</h3>
+                    <p>Review and approve tenant profile change requests.</p>
+                    <p><strong>Actions:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>View pending profile changes from tenants</li>
+                        <li>Review old and new information side-by-side</li>
+                        <li>Approve changes to update tenant profiles</li>
+                        <li>Reject changes with custom feedback</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>2. Keycard Requests</h3>
+                    <p>Manage all keycard request submissions.</p>
+                    <p><strong>Request Types:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Lost Keycard - Tenant lost their card</li>
+                        <li>Damaged Keycard - Card is not functioning</li>
+                        <li>New Unit - Tenant moved or added unit</li>
+                        <li>Other - Custom reason provided by tenant</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>Actions:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Review request details</li>
+                        <li>Approve and issue new keycard</li>
+                        <li>Reject with reason</li>
+                        <li>Request more information from tenant</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>3. All Tenants</h3>
+                    <p>View and search all registered tenants.</p>
+                    <p><strong>Available Information:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Full Name</li>
+                        <li>Unit/Apartment Number</li>
+                        <li>Email Address</li>
+                        <li>Phone Number</li>
+                        <li>Move-in Date</li>
+                    </ul>
+                    <p style="margin-top: 12px;"><strong>Search & Filter:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Search by tenant name or unit number</li>
+                        <li>Filter by status (Active, Pending, Inactive)</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>4. Live Camera Feed</h3>
+                    <p>Monitor real-time camera feeds from entry points.</p>
+                    <p><strong>How to Access:</strong></p>
+                    <ol style="margin-left: 20px; color: #666;">
+                        <li>Go to "Live Camera Feed" section</li>
+                        <li>Select apartment from the buttons (APT 101, 102, 103)</li>
+                        <li>Enter admin PIN code</li>
+                        <li>Click "VERIFY" to start streaming</li>
+                        <li>Click "Lock Camera" to stop access</li>
+                    </ol>
+                    <p style="margin-top: 12px;"><strong>Features:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Real-time MJPEG stream from ESP32 camera</li>
+                        <li>Full-screen view option</li>
+                        <li>PIN-protected access (security layer)</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>5. Camera Permissions</h3>
+                    <p>Grant or revoke camera access to tenants.</p>
+                    <p><strong>Actions:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>View list of all tenants and their permissions</li>
+                        <li>Grant camera access to specific tenants</li>
+                        <li>Revoke camera access when needed</li>
+                        <li>Set expiration dates for temporary access</li>
+                    </ul>
+                </div>
+
+                <div class="role-section">
+                    <h3>6. RFID Access Log</h3>
+                    <p>Monitor all keycard scans across the property.</p>
+                    <p><strong>Log Details:</strong></p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Column</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Date/Time</strong></td>
+                                <td>Exact timestamp of the scan</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Card ID</strong></td>
+                                <td>First 8 characters of the RFID chip ID</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Tenant</strong></td>
+                                <td>Name of the resident</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Apartment</strong></td>
+                                <td>Unit number (APT 101, 102, 103, etc.)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Lock Status</strong></td>
+                                <td>🔓 Unlocked, 🔒 Locked, or 🚫 Denied</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Actions</strong></td>
+                                <td>View detailed record button</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p style="margin-top: 12px;"><strong>Filter Options:</strong></p>
+                    <ul style="margin-left: 20px; color: #666;">
+                        <li>Select specific apartment to view only their scans</li>
+                        <li>Filter by date range</li>
+                        <li>Filter by access status (Unlocked, Denied)</li>
+                        <li>Export logs for record keeping</li>
+                    </ul>
+                </div>
+
+                <h3>Common Landlord Tasks</h3>
+
+                <h4>Task: Approve a Tenant Keycard Request</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Click "Keycard Requests" in the sidebar</li>
+                        <li>Review the pending request details</li>
+                        <li>Click "Approve Request" button</li>
+                        <li>Confirm the action</li>
+                        <li>Tenant will be notified of approval</li>
+                    </ol>
+                </div>
+
+                <h4>Task: Monitor Unauthorized Access Attempts</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Go to "RFID Access Log"</li>
+                        <li>Look for records with 🚫 Denied status</li>
+                        <li>Click "View" to see full details</li>
+                        <li>Contact tenant to investigate if needed</li>
+                        <li>Take action (deactivate card, reset permissions)</li>
+                    </ol>
+                </div>
+
+                <h4>Task: Grant Camera Access to Specific Tenant</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Click "Camera Permissions" in the sidebar</li>
+                        <li>Find tenant in the list</li>
+                        <li>Click "Grant Access" button</li>
+                        <li>Set access duration (permanent or temporary)</li>
+                        <li>Confirm and save changes</li>
+                    </ol>
+                </div>
+
+                <h4>Task: Investigate Suspicious Activity</h4>
+                <div class="step-card">
+                    <strong>Steps:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px; color: #666;">
+                        <li>Go to "RFID Access Log"</li>
+                        <li>Select the apartment in question</li>
+                        <li>Review access history for anomalies</li>
+                        <li>Click "Live Camera Feed" to check cameras</li>
+                        <li>Use camera footage to verify legitimacy</li>
+                        <li>Document findings for records</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="page-break"></div>
+
+            <!-- TECHNICAL SPECIFICATIONS -->
+            <div class="section" id="technical-specs">
+                <h2>⚙️ Technical Specifications</h2>
+
+                <h3>System Architecture</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Technology</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Frontend</strong></td>
+                            <td>HTML5, CSS3, JavaScript ES6+</td>
+                            <td>Responsive web interface</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Backend</strong></td>
+                            <td>Firebase (Firestore, Realtime DB)</td>
+                            <td>Cloud data storage and authentication</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Authentication</strong></td>
+                            <td>Firebase Auth v10.7.1</td>
+                            <td>Secure user login and session management</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFID Readers</strong></td>
+                            <td>Arduino/ESP32 IoT Devices</td>
+                            <td>Read RFID keycard data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Lock Control</strong></td>
+                            <td>Servo Motor (9-90° rotation)</td>
+                            <td>Magnetic lock engagement/release</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Camera Stream</strong></td>
+                            <td>ESP32 with Camera Module (MJPEG)</td>
+                            <td>Real-time video streaming</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Server</strong></td>
+                            <td>Python 3 HTTP Server (localhost:8000)</td>
+                            <td>Development and local hosting</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Security Features</h3>
+                <ul class="feature-list">
+                    <li>End-to-end encryption for all data</li>
+                    <li>Firebase security rules for database access</li>
+                    <li>Email/password authentication with secure tokens</li>
+                    <li>PIN protection for camera access</li>
+                    <li>Session timeout and automatic logout</li>
+                    <li>Role-based access control (Tenant vs. Landlord)</li>
+                    <li>RFID card validation and expiration checking</li>
+                </ul>
+
+                <h3>Color Scheme & Design</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Element</th>
+                            <th>Color Code</th>
+                            <th>Usage</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Primary Blue</td>
+                            <td>#87ceeb (Sky Blue)</td>
+                            <td>Header, buttons, active states</td>
+                        </tr>
+                        <tr>
+                            <td>Dark Blue</td>
+                            <td>#4682b4 (Steel Blue)</td>
+                            <td>Sidebar, text, accents</td>
+                        </tr>
+                        <tr>
+                            <td>Success</td>
+                            <td>#4caf50 (Green)</td>
+                            <td>Successful actions, unlocked status</td>
+                        </tr>
+                        <tr>
+                            <td>Error</td>
+                            <td>#f44336 (Red)</td>
+                            <td>Denied status, errors, deletions</td>
+                        </tr>
+                        <tr>
+                            <td>Warning</td>
+                            <td>#ff9800 (Orange)</td>
+                            <td>Locked status, pending items</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>System Capabilities</h3>
+                <ul class="feature-list">
+                    <li>Support for maximum 1000+ concurrent RFID scans per day</li>
+                    <li>Real-time database synchronization (under 1 second latency)</li>
+                    <li>Automatic record logging and timestamping</li>
+                    <li>Historical data storage with date filtering</li>
+                    <li>Support for multiple apartments (101, 102, 103)</li>
+                    <li>Live camera streaming at 15-30 FPS</li>
+                    <li>Mobile-responsive design for all screen sizes</li>
+                    <li>Cross-browser compatibility (Chrome, Firefox, Safari, Edge)</li>
+                </ul>
+            </div>
+
+            <!-- TROUBLESHOOTING -->
+            <div class="section" id="troubleshooting">
+                <h2>🔧 Troubleshooting Guide</h2>
+
+                <h3>RFID & Lock Issues</h3>
+
+                <div class="step-card">
+                    <strong>Issue: Keycard not working / Access Denied</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Possible Causes:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Keycard not registered in system</li>
+                            <li>Keycard is deactivated or expired</li>
+                            <li>RFID reader not powered on</li>
+                            <li>Connection between reader and system interrupted</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Check if your keycard is registered (contact landlord)</li>
+                            <li>Verify card hasn't been deactivated</li>
+                            <li>Try scanning again after 5 seconds</li>
+                            <li>Check if other residents' cards work (to rule out reader issue)</li>
+                            <li>Contact landlord if problem persists</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <strong>Issue: Lock not opening after successful scan</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Possible Causes:</strong></p>
+                        <ul style="margin-left: 20px;">
+                            <li>Servo motor malfunction</li>
+                            <li>Magnetic lock issue</li>
+                            <li>Electronic control system error</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Wait 30 seconds and try again</li>
+                            <li>Check if the lock shows any physical damage</li>
+                            <li>Note the time of the malfunction</li>
+                            <li>Contact landlord with time details</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Dashboard & Login Issues</h3>
+
+                <div class="step-card">
+                    <strong>Issue: Cannot login / Invalid credentials</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Verify email address and password are correct (case-sensitive)</li>
+                            <li>Use "Forgot Password" to reset if needed</li>
+                            <li>Clear browser cache: Ctrl+Shift+Delete</li>
+                            <li>Try a different browser</li>
+                            <li>Ensure cookies are enabled in browser settings</li>
+                            <li>Contact system administrator if still unable to login</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <strong>Issue: Dashboard not loading or "Loading..." stuck</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Hard refresh page: Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)</li>
+                            <li>Check internet connection</li>
+                            <li>Wait 30 seconds for initial load</li>
+                            <li>Try a different browser</li>
+                            <li>Log out completely and log back in</li>
+                            <li>Check if Firebase service is operational</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Camera Feed Issues</h3>
+
+                <div class="step-card">
+                    <strong>Issue: Camera feed shows "INSERT PIN" but won't connect</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Verify PIN is correct (case-sensitive)</li>
+                            <li>Ensure apartment is not "- - -" (select an apartment)</li>
+                            <li>Check if you have camera access permission (landlord must grant)</li>
+                            <li>Verify ESP32 camera module is powered on</li>
+                            <li>Check network connection to camera device</li>
+                            <li>Try from a different device to isolate issue</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <h3>Real-Time Update Issues</h3>
+
+                <div class="step-card">
+                    <strong>Issue: New records not appearing in real-time</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solutions:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Check your internet connection</li>
+                            <li>Ensure page is actively open (background tabs may pause)</li>
+                            <li>Try refreshing the page</li>
+                            <li>Check browser console for errors (F12 key)</li>
+                            <li>Disable browser extensions that might block connections</li>
+                            <li>Verify Firebase Realtime Database is active</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="section" id="faq">
+                <h2>❓ Frequently Asked Questions</h2>
+
+                <h3>General Questions</h3>
+
+                <div class="info-box">
+                    <strong>Q: How does the RFID system work?</strong>
+                    <p style="margin-top: 10px;">A: When you scan your keycard at the reader, it transmits your card ID to the system. The system verifies your identity and access permissions. If valid, the electronic lock opens for 10 seconds. All access attempts are logged automatically.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: Is my access data secure?</strong>
+                    <p style="margin-top: 10px;">A: Yes. All data is encrypted using enterprise-grade security. You can only see your own records (tenants) or all records (landlords). Firebase provides backup, recovery, and compliance with data protection standards.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: What happens if I lose my keycard?</strong>
+                    <p style="margin-top: 10px;">A: Submit a "Lost Keycard" request in the Keycard Management section. Your landlord will review and approve the request. You can request a replacement while your old card is deactivated to prevent unauthorized use.</p>
+                </div>
+
+                <h3>Tenant-Specific Questions</h3>
+
+                <div class="info-box">
+                    <strong>Q: How do I see my access history?</strong>
+                    <p style="margin-top: 10px;">A: Click "RFID Track Record" in your dashboard. You'll see your access statistics and a detailed table of all your scans. You can filter by date range to find specific entries.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: What does "🔓 Unlocked" status mean?</strong>
+                    <p style="margin-top: 10px;">A: This means your keycard scan was successful and the lock opened. The unlock status automatically transitions to 🔒 Locked after 10 seconds (the door closes).</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: Why do I see repeated scans on the same day?</strong>
+                    <p style="margin-top: 10px;">A: Each time you scan your card at the reader, it's logged as a separate entry. Multiple scans on the same day are normal if you enter and exit multiple times or if multiple people use the same reader.</p>
+                </div>
+
+                <h3>Landlord-Specific Questions</h3>
+
+                <div class="info-box">
+                    <strong>Q: How do I approve pending requests?</strong>
+                    <p style="margin-top: 10px;">A: Go to "Pending Approvals" or "Keycard Requests" in your dashboard. Review the request details and click the appropriate action button (Approve, Reject, or Request More Info). Tenants will be notified of your decision.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: Can I see which tenant accessed specific apartments?</strong>
+                    <p style="margin-top: 10px;">A: Yes. Go to "RFID Access Log" and select the apartment from the filter buttons. You'll see all scans for that unit with tenant names, times, and status.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: How do I monitor cameras?</strong>
+                    <p style="margin-top: 10px;">A: Click "Live Camera Feed" in your dashboard. Select an apartment and enter your admin PIN. The live camera stream will display. You must grant camera permissions to tenants who need access.</p>
+                </div>
+
+                <div class="info-box">
+                    <strong>Q: What should I do if someone tries unauthorized access?</strong>
+                    <p style="margin-top: 10px;">A: Check the RFID Access Log for denied attempts. Use the camera feed to verify if unauthorized activity is happening. Document the incident with timestamps. Consider deactivating suspicious cards or adjusting permissions.</p>
+                </div>
+            </div>
+
+            <!-- SYSTEM STATUS & SUPPORT -->
+            <div class="section">
+                <h2>📞 Support & Additional Resources</h2>
+
+                <h3>System Status</h3>
+                <p>Current System Status: <span class="badge badge-success">✓ Operational</span></p>
+                <p>Last Updated: February 2026</p>
+
+                <h3>Getting Help</h3>
+                <div class="info-box">
+                    <strong>For Tenants:</strong> Contact your landlord with any questions or issues. Provide details about what you're trying to do and any error messages you see.
+                </div>
+                <div class="info-box">
+                    <strong>For Landlords:</strong> Check this manual's troubleshooting section first. If the issue persists, contact the system administrator with error details and screenshots.
+                </div>
+
+                <h3>Documentation</h3>
+                <ul class="feature-list">
+                    <li>This User Manual (complete system guide)</li>
+                    <li>RFID Track Record User Guide (detailed access tracking)</li>
+                    <li>Data Flow Diagrams (DFD 0, 1, 2 - system architecture)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>SecurAccess System User Manual | Complete Reference | February 2026</p>
+            <p>For Capstone Project Documentation</p>
+        </div>
+    </div>
+</body>
+</html>

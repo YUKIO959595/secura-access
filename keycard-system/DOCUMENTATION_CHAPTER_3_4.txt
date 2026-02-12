@@ -1,0 +1,496 @@
+================================================================================
+                    KEYCARD ACCESS CONTROL & MONITORING SYSTEM
+                         CHAPTERS 3 & 4 - TECHNICAL DOCUMENTATION
+================================================================================
+
+
+CHAPTER 3: SYSTEM DESIGN & ARCHITECTURE
+================================================================================
+
+3.1 SYSTEM OVERVIEW
+================================================================================
+
+The Keycard Access Control & Monitoring System is a comprehensive solution designed 
+to manage apartment access through RFID keycards while providing real-time camera 
+surveillance capabilities. The system integrates hardware components (ESP32 camera 
+module, RFID readers), cloud services (Firebase Firestore for data management), and 
+web applications (landlord and tenant dashboards) to create a unified property 
+management platform. The architecture employs a three-tier design: frontend web 
+applications for user interaction, a Python backend server for stream proxying and 
+API management, and Firebase cloud services for data persistence and real-time 
+synchronization.
+
+
+3.2 DATA FLOW DIAGRAM (DFD) - LEVEL 0 (SYSTEM CONTEXT)
+================================================================================
+
+                              ┌─────────────────┐
+                              │  RFID READER    │
+                              │   & ESP32       │
+                              │   COMPONENTS    │
+                              └────────┬────────┘
+                                       │
+                              Keycard UIDs & Camera Feed
+                                       │
+                    ┌──────────────────▼──────────────────┐
+                    │                                     │
+                    │   KEYCARD ACCESS & MONITORING      │
+                    │         SYSTEM (CORE)              │
+                    │                                     │
+                    └──────────────────┬──────────────────┘
+                                       │
+                    ┌──────────────────┼──────────────────┐
+                    │                  │                  │
+                    ▼                  ▼                  ▼
+            ┌──────────────┐  ┌──────────────┐  ┌──────────────┐
+            │   LANDLORD   │  │   TENANT     │  │  FIREBASE    │
+            │  DASHBOARD   │  │  DASHBOARD   │  │   DATABASE   │
+            └──────────────┘  └──────────────┘  └──────────────┘
+
+Description: The Level 0 DFD illustrates the high-level system architecture with 
+four main components: RFID readers and ESP32 camera hardware that capture access 
+data and video streams, the core system that processes this information, and three 
+output destinations including the landlord and tenant web interfaces plus the 
+Firebase cloud database. This design demonstrates a star topology where the central 
+system acts as a hub, distributing and collecting information from all connected 
+components in real-time.
+
+
+3.3 DATA FLOW DIAGRAM (DFD) - LEVEL 1 (DETAILED SYSTEM PROCESSES)
+================================================================================
+
+TENANT/LANDLORD ACCESS FLOW:
+                                    
+    RFID Reader ──────┐              
+                      ├──> Process RFID Data ──> Validate UID ──> Database
+    Mobile Device ────┘                           │
+                                              (Match Found?)
+                                                  │
+                                    ┌─────────────┴─────────────┐
+                                    ▼                           ▼
+                              Grant Access              Deny Access
+                              (Unlock Door)         (Log Attempt & Alert)
+                                    │                           │
+                                    └─────────────┬─────────────┘
+                                                  │
+                                          Update Access Logs
+
+
+CAMERA MONITORING FLOW:
+
+    ESP32 Camera ──> Python Server Proxy ──> Live Stream Processing ──> Display
+                           │                        │
+                           │                        ▼
+                           │                   PIN Verification
+                           │                        │
+                           └────────────────> Send Notifications
+                                              (Firebase)
+
+
+Description: The Level 1 DFD breaks down the system into two primary processes. 
+The tenant/landlord access flow captures RFID data from keycards or mobile devices, 
+validates them against the database, and either grants access by unlocking the door 
+or logs the failed attempt. The camera monitoring flow streams video from the ESP32 
+camera through a Python proxy server, applies PIN verification security, and sends 
+real-time notifications to relevant users through Firebase when access is detected.
+
+
+3.4 ENTITY RELATIONSHIP DIAGRAM (ERD)
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                                                                             │
+│  ┌──────────────┐         1:M          ┌──────────────┐                   │
+│  │   TENANTS    │◄──────────────────────│  APARTMENTS  │                   │
+│  ├──────────────┤                      ├──────────────┤                   │
+│  │ tenant_id    │                      │ apt_number   │                   │
+│  │ email        │                      │ address      │                   │
+│  │ name         │                      │ floor        │                   │
+│  │ phone        │                      │ building_id  │                   │
+│  │ apartment_id │─┐                    │ door_lock_ip │                   │
+│  └──────────────┘ │                    └──────────────┘                   │
+│                   │                                                        │
+│  ┌────────────────┼──────────┐         1:M          ┌──────────────┐     │
+│  │                │          └──────────────────────│  KEYCARDS    │     │
+│  │   1:M          │                                ├──────────────┤     │
+│  │                │                                │ keycard_id   │     │
+│  │     ┌──────────▼──────────┐                     │ tenant_id    │     │
+│  │     │  ACCESS_LOGS        │                     │ uid          │     │
+│  │     ├─────────────────────┤                     │ type         │     │
+│  │     │ log_id              │                     │ status       │     │
+│  │     │ tenant_id           │                     │ issued_date  │     │
+│  │     │ keycard_uid         │                     │ expiry_date  │     │
+│  │     │ apartment_id        │                     └──────────────┘     │
+│  │     │ timestamp           │                                           │
+│  │     │ action (granted)    │                                           │
+│  │     └─────────────────────┘                                           │
+│  │                                                                        │
+│  │                                  M:M                                  │
+│  │     ┌──────────────────────────────────────────┐                     │
+│  │     │  CAMERA_ACCESS_LOGS                      │                     │
+│  │     ├───────────────────────────────────────────┤                     │
+│  │     │ access_id                                 │                     │
+│  │     │ tenant_id (viewer)                        │                     │
+│  │     │ apartment_id (monitored)                  │                     │
+│  │     │ access_type (landlord/tenant_self_view)  │                     │
+│  │     │ pin_verified                              │                     │
+│  │     │ start_time                                │                     │
+│  │     │ end_time                                  │                     │
+│  │     │ duration_minutes                          │                     │
+│  │     └───────────────────────────────────────────┘                     │
+│  │                                                                        │
+│  │     ┌──────────────────────────────┐                                  │
+│  │     │  NOTIFICATIONS               │                                  │
+│  │     ├──────────────────────────────┤                                  │
+│  │     │ notification_id              │                                  │
+│  │     │ user_id                      │                                  │
+│  │     │ type (camera_monitoring)     │                                  │
+│  │     │ title                        │                                  │
+│  │     │ message                      │                                  │
+│  │     │ timestamp                    │                                  │
+│  │     │ read_status                  │                                  │
+│  │     └──────────────────────────────┘                                  │
+│  │                                                                        │
+│  └────────────────────────────────────────────────────────────────────────┘
+
+Description: The ERD represents the five core entities and their relationships in 
+the system. Tenants maintain one-to-many relationships with both Apartments and 
+Keycards, establishing the hierarchical structure of the property. Access Logs 
+record every RFID transaction with temporal data (timestamp, action), while Camera 
+Access Logs specifically track surveillance viewing sessions with PIN verification 
+status and duration metrics. Notifications bridge users and monitoring events, 
+enabling real-time alerts when camera access occurs. This schema supports audit 
+trails for security compliance and enables powerful querying for analytics.
+
+
+3.5 UML USE CASE DIAGRAM
+================================================================================
+
+                                        ┌─────────────────────────┐
+                                        │   KEYCARD SYSTEM        │
+                                        └─────────────────────────┘
+                                                      │
+                    ┌─────────────────────────┬───────┼───────┬─────────────────────────┐
+                    │                         │               │                         │
+         ┌──────────▼──────────┐   ┌──────────▼──────────┐   │      ┌──────────────────▼──────┐
+         │ Register Keycard    │   │ Access Building    │   │      │ Monitor Apartment      │
+         └─────────────────────┘   └────────────────────┘   │      │ Camera (Landlord)      │
+                    │                         │              │      └───────────────────────┘
+                    │                         │              │               │
+                    │         ┌───────────────┴──────────────┴───────────────┼─────────┐
+                    │         │                                              │         │
+              ┌─────▼─────────▼──────┐                                      │         │
+              │     TENANT           │                                      │         │
+              │  (Primary Actor)     │                                      │         │
+              └─────┬────────────────┘                                      │         │
+                    │                                                       │         │
+                    │                      ┌──────────────────────────────┤         │
+                    │                      │                              │         │
+    ┌───────────────┴──────────┐   ┌──────▼──────────────────────────┐   │         │
+    │ View Personal Camera     │   │ Request Keycard Approval        │   │         │
+    │ (PIN Protected)          │   │ (Send Requests)                 │   │         │
+    └──────────────────────────┘   └─────────────────────────────────┘   │         │
+                                                                          │         │
+                                                    ┌─────────────────────▼──┐     │
+                                                    │  LANDLORD              │     │
+                                                    │ (Secondary Actor)      │     │
+                                                    └──────────┬─────────────┘     │
+                                                               │                  │
+                        ┌──────────────────────────────────────┼──────────────────┤
+                        │                                      │                  │
+                   ┌────▼──────────────────┐      ┌────────────▼───────┐  ┌──────▼────┐
+                   │ Approve/Deny Requests │      │ View Access Logs   │  │ Lock/Unlock│
+                   │ (Manage Keycards)     │      │ (Monitor Activity) │  │   Door     │
+                   └───────────────────────┘      └────────────────────┘  └────────────┘
+
+Description: The UML Use Case Diagram identifies six primary use cases and two main 
+actors. Tenants can register keycards, access the building with valid credentials, 
+view their own apartment camera feed with PIN protection, and request new keycards. 
+Landlords approve or deny these requests, manage keycard registrations, view 
+comprehensive access logs across all apartments, monitor live camera feeds with 
+PIN-protected access, and control door locks remotely. This design ensures clear 
+separation of concerns: tenants manage their own access while landlords maintain 
+system-wide oversight and control.
+
+
+================================================================================
+CHAPTER 4: SYSTEM FEATURES & USER INTERFACE
+================================================================================
+
+4.1 SYSTEM FEATURES OVERVIEW
+================================================================================
+
+The Keycard Access Control & Monitoring System provides comprehensive features 
+organized across two primary user interfaces (Landlord Dashboard and Tenant Dashboard) 
+with supporting infrastructure for RFID processing, camera streaming, and data 
+management. All features integrate Firebase Firestore for real-time data synchronization 
+and employ security mechanisms including PIN verification for camera access.
+
+
+4.2 LANDLORD DASHBOARD FEATURES
+================================================================================
+
+FEATURE 1: PENDING APPROVALS
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Pending Approvals" section showing a list 
+of tenant requests (e.g., profile change requests with status badges).
+
+Feature Description: The Pending Approvals section displays all incoming requests 
+from tenants including profile modifications and new keycard requests. Each request 
+displays the tenant name, request type, submission date, and associated action 
+buttons (Approve/Deny). This centralized approval interface allows landlords to 
+quickly review and respond to tenant requests without navigating multiple pages, 
+with visual status indicators (pending, approved, rejected) providing at-a-glance 
+workflow management.
+
+
+FEATURE 2: KEYCARD REQUESTS MANAGEMENT
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Keycard Requests" section showing pending 
+keycard applications with tenant details and action buttons.
+
+Feature Description: This feature provides a dedicated interface for managing keycard-
+related requests from tenants, including new keycard applications, lost keycard 
+reports, and temporary access requests. Each request shows the tenant information, 
+reason for request, and timestamps, with quick-action buttons for approval or 
+rejection. The system automatically logs all decisions with timestamps, creating an 
+audit trail for compliance purposes.
+
+
+FEATURE 3: ALL TENANTS DIRECTORY
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "All Tenants" section showing a searchable 
+table/list with tenant details and quick-access buttons.
+
+Feature Description: A comprehensive directory listing all current tenants with their 
+contact information, apartment assignments, keycard status, and access privileges. 
+The interface includes filtering capabilities (by apartment, status), sorting options, 
+and quick-action buttons to view tenant details, manage keycards, or generate access 
+reports. This centralized database enables efficient tenant management and rapid 
+lookups.
+
+
+FEATURE 4: LIVE CAMERA FEED WITH PIN PROTECTION
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Two screenshots - (1) the dark PIN lock screen showing 
+apartment selection buttons (APT 101, 102, 103) with PIN input field, and (2) the 
+unlocked view showing live MJPEG stream with monitoring information.
+
+Feature Description: The Live Camera Feed section proce (PIN: 2026). Landlords first 
+select the apartment to monitor, enter their PIN,vides secure real-time monitoring 
+of apartment cameras behind a PIN-protected interfa and gain access to the live MJPEG 
+video stream from the ESP32 camera module. The interface displays the apartment number, 
+live status indicator, and a monitoring timer showing how long surveillance has been 
+active. When access is granted, the system automatically sends notifications to the 
+monitored apartment's tenants, maintaining transparency. The feed refreshes every 500ms 
+and includes an Exit button to terminate the monitoring session.
+
+
+FEATURE 5: CAMERA PERMISSIONS MANAGEMENT
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Camera Permissions" or "Camera Access" 
+section showing a list of users/tenants with permission toggles or settings.
+
+Feature Description: This administrative feature controls which tenants have access 
+to their apartment cameras and what permission levels they possess (view only, 
+time-restricted access, etc.). Landlords can enable or disable camera access on a 
+per-tenant basis, set expiration dates, and view access logs for each permission 
+granted. This granular control ensures privacy compliance while enabling necessary 
+surveillance capabilities.
+
+
+FEATURE 6: RFID ACCESS LOG & ANALYTICS
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "RFID Access Log" section showing the access 
+table with columns (Tenant, Apartment, Timestamp, Action, Status) and filter controls 
+above it. If available, also show the door status indicator.
+
+Feature Description: A detailed access log displays all RFID keycard transactions 
+across the property with filters for apartment, tenant, and time period (Today, Last 
+7/30/90 Days, All Time). Each log entry shows tenant name, apartment, timestamp, 
+action type (access granted/denied), and transaction status. Statistics at the top 
+summarize total accesses, failed attempts, and active users. The door status indicator 
+shows current lock state (LOCKED/UNLOCKED) with visual feedback, enabling quick 
+incident response and forensic analysis.
+
+
+4.3 TENANT DASHBOARD FEATURES
+================================================================================
+
+FEATURE 7: TENANT PROFILE & INFORMATION
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "My Profile" or profile section showing 
+tenant name, apartment number, contact information, and any profile update options.
+
+Feature Description: The tenant profile section displays personal information 
+including name, email, phone number, apartment assignment, and lease period. Tenants 
+can view and update their contact information, with changes requiring landlord 
+approval before taking effect. This section also displays active keycard count and 
+status (active/inactive), providing tenants visibility into their access credentials.
+
+
+FEATURE 8: ACCESS HISTORY & ACTIVITY LOG
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Access History" or "Activity Log" section 
+showing a chronological list of the tenant's building access attempts (successful 
+and failed).
+
+Feature Description: Tenants can view their personal access history showing each time 
+their keycard was used to enter the building, including date, time, and access status 
+(successful/denied). This transparency feature helps tenants verify their own activity 
+and quickly identify any unauthorized access attempts using their credentials. The log 
+includes a 30-day view option and details such as entry point (apartment door/main 
+entrance).
+
+
+FEATURE 9: TENANT'S APARTMENT CAMERA ACCESS
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Two screenshots - (1) the dark PIN lock screen with PIN 
+input field and description text "Monitor your apartment camera", and (2) the unlocked 
+view showing live MJPEG stream from the camera with a "Live" status indicator and exit 
+button. Also capture the monitoring alert banner if present.
+
+Feature Description: Tenants can view their own apartment's camera feed through a 
+PIN-protected interface (PIN: 2025), allowing self-monitoring of their living space. 
+Upon successful PIN verification, the system displays the live MJPEG stream with a 
+status indicator (Live/Offline) and includes a monitoring alert banner that notifies 
+when the landlord is accessing the camera, maintaining transparency about surveillance. 
+The interface includes a duration timer and exit button for session management. The 
+camera feed refreshes every 500ms for near-real-time viewing.
+
+
+FEATURE 10: KEYCARD STATUS & MANAGEMENT
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Keycard Status" section showing status details 
+(Valid Until date, Days Remaining) and action buttons (Deactivate, Request New Keycard).
+
+Feature Description: This section displays the current status of the tenant's primary 
+keycard including validity status (Active/Expired), expiration date, and remaining 
+days before expiration. Tenants can request new keycards if lost or damaged through 
+an integrated request form that specifies the reason (lost, damaged, guest keycard, 
+new family member). The system requires landlord approval before issuing new keycards, 
+with notifications confirming approval or denial.
+
+
+FEATURE 11: PENDING REQUESTS & NOTIFICATIONS
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture the "Pending Requests" section or a notifications 
+area showing submitted requests (e.g., profile changes, keycard requests) with their 
+current status.
+
+Feature Description: Tenants can view all submitted requests (profile changes, keycard 
+requests) in one location with current status indicators (Pending, Approved, Denied). 
+This interface provides transparency into the approval workflow and includes 
+notifications when landlords take action on requests. Timestamps for submissions and 
+actions help tenants track request timelines.
+
+
+FEATURE 12: TENANT NOTIFICATIONS SYSTEM
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: Capture any notifications/alerts section or modal, 
+particularly the "monitoring alert" banner that appears when landlord accesses camera.
+
+Feature Description: The notification system automatically alerts tenants in real-time 
+when important events occur: landlord camera access with alert message "🚨 Camera 
+Monitoring Active - Your apartment camera is being monitored", request approvals/denials, 
+and keycard status changes. Notifications include timestamps and action details, with 
+a mark-as-read functionality to manage notification history. This transparency feature 
+is central to user trust and privacy compliance.
+
+
+4.4 BACKEND & INTEGRATION FEATURES
+================================================================================
+
+FEATURE 13: REAL-TIME CAMERA STREAM PROXY
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: No visual screenshot needed - describe architecture in 
+system documentation.
+
+Feature Description: The Python-based camera stream proxy (`/api/camera/stream` endpoint) 
+fetches MJPEG video from the ESP32 camera module and serves it through the local 
+server, eliminating direct IP exposure and improving security. The proxy automatically 
+attempts multiple fallback endpoints (/capture, /stream, /jpg, /mjpeg) to ensure 
+compatibility with various ESP32 firmware versions. The stream is accessed via 
+localhost:8000, providing centralized control and bandwidth management.
+
+
+FEATURE 14: FIREBASE REAL-TIME SYNCHRONIZATION
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: No visual screenshot needed - backend feature.
+
+Feature Description: Firebase Firestore integrates with the system to provide real-time 
+data synchronization across all connected clients. When a tenant receives approval for 
+a request or when a landlord initiates camera monitoring, Firestore instantly propagates 
+these updates to active user sessions. This event-driven architecture ensures zero-delay 
+updates without requiring page refreshes, critical for notification systems and access 
+control updates.
+
+
+FEATURE 15: AUDIT LOGGING & COMPLIANCE
+───────────────────────────────────────────────────────────────────────────────
+Screenshot Recommendation: No visual screenshot needed - backend logging feature.
+
+Feature Description: Every system action (RFID access, camera monitoring, request approvals) 
+is automatically logged to Firebase collections with timestamps, user identifiers, action 
+type, and results. This comprehensive audit trail enables forensic analysis, regulatory 
+compliance reporting, and incident investigation. Logs are queryable by date range, user, 
+apartment, and action type, supporting both real-time dashboards and historical analysis.
+
+
+4.5 SECURITY FEATURES
+================================================================================
+
+FEATURE 16: PIN-PROTECTED CAMERA ACCESS
+───────────────────────────────────────────────────────────────────────────────
+
+Feature Description: Camera access requires separate PIN verification (Landlord PIN: 
+2026, Tenant PIN: 2025) independent of building access keycards. This two-factor 
+approach isolates camera surveillance from physical access, preventing unauthorized 
+monitoring. Failed PIN attempts are logged and rate-limited to prevent brute-force 
+attacks. PIN entry uses secure password input masking for visual privacy during entry.
+
+
+FEATURE 17: TRANSPARENT MONITORING NOTIFICATIONS
+───────────────────────────────────────────────────────────────────────────────
+
+Feature Description: When landlords access tenant camera feeds, Firebase automatically 
+notifies the monitored tenant in real-time with landlord name and access start time. 
+This transparency mechanism establishes trust and ensures tenants are aware of 
+surveillance, meeting privacy law requirements. Notifications remain visible in the 
+tenant interface throughout the monitoring session.
+
+
+================================================================================
+4.6 RECOMMENDED SCREENSHOTS FOR DOCUMENTATION
+================================================================================
+
+The following screenshots are recommended for a complete technical documentation with 
+visual reference:
+
+LANDLORD DASHBOARD:
+  1. Pending Approvals list view
+  2. Keycard Requests management interface
+  3. All Tenants directory table
+  4. Live Camera Feed PIN lock screen (showing apartment buttons, PIN input)
+  5. Live Camera Feed unlocked view (showing MJPEG stream, monitoring timer)
+  6. Camera Permissions management interface
+  7. RFID Access Log with filters and statistics
+
+TENANT DASHBOARD:
+  8. Tenant Profile information section
+  9. Access History/Activity Log table
+  10. Apartment Camera Access PIN lock screen
+  11. Apartment Camera Feed unlocked view (with live status)
+  12. Tenant monitoring alert banner (when landlord accesses)
+  13. Keycard Status and management section
+  14. Pending Requests with approval status
+
+SYSTEM DIAGRAMS (TO BE CREATED):
+  15. Architecture diagram showing components integration
+  16. Security model diagram
+  17. Database schema ER diagram (as provided in 3.4)
+
+
+================================================================================
+END OF CHAPTERS 3 & 4 DOCUMENTATION
+================================================================================

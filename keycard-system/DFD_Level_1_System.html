@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFD 1 - System Architecture Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4682b4 0%, #87ceeb 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4682b4;
+        }
+
+        .section h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .diagram-container {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .description-box {
+            background: #e8f4f8;
+            border-left: 4px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .process-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .process-table thead {
+            background: #4682b4;
+            color: white;
+        }
+
+        .process-table th,
+        .process-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .process-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .datastore-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .datastore-list li {
+            padding: 10px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .datastore-list li:before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #4682b4;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .flow-section {
+            background: #f0f8ff;
+            border: 1px solid #87ceeb;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .flow-section h4 {
+            color: #4682b4;
+            margin-bottom: 10px;
+        }
+
+        .flow-section ul {
+            list-style-position: inside;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .flow-section li {
+            margin-bottom: 5px;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .diagram-container {
+                padding: 10px;
+                overflow-x: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DFD Level 1</h1>
+            <p>System Architecture Diagram - SecurAccess</p>
+        </div>
+
+        <div class="content">
+            <!-- DIAGRAM -->
+            <div class="section">
+                <h2>🔄 System Architecture</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TB
+                            subgraph "External Entities"
+                                TENANT["👤 Tenant"]
+                                LANDLORD["👨‍💼 Landlord"]
+                                RFID["📱 RFID"]
+                                CAMERA["📹 Camera"]
+                            end
+                            
+                            subgraph "SecurAccess System"
+                                AUTH["1.0<br/>Authentication<br/>& Authorization"]
+                                RFID_PROC["2.0<br/>RFID Processing<br/>& Verification"]
+                                LOCK_CTRL["3.0<br/>Lock Control<br/>& State"]
+                                CAM_MGR["4.0<br/>Camera Access<br/>Manager"]
+                                REQ_MGR["5.0<br/>Request & Approval<br/>Manager"]
+                                DATA_MGR["6.0<br/>Data Management<br/>& Logging"]
+                            end
+                            
+                            subgraph "Data Stores"
+                                DB_USERS["D1: Users<br/>(Tenants/Landlords)"]
+                                DB_ACCESS["D2: Access Log<br/>(RFID Records)"]
+                                DB_REQUESTS["D3: Pending<br/>Requests"]
+                                DB_PERMS["D4: Permissions<br/>(Cards & Keys)"]
+                            end
+                            
+                            TENANT -->|1.1: Login Credentials| AUTH
+                            AUTH -->|1.2: Dashboard| TENANT
+                            
+                            LANDLORD -->|1.3: Admin Login| AUTH
+                            AUTH -->|1.4: Admin Panel| LANDLORD
+                            
+                            RFID -->|2.1: Card ID| RFID_PROC
+                            RFID_PROC -->|2.2: Verification<br/>Response| RFID
+                            RFID_PROC -->|3.1: Unlock<br/>Signal| LOCK_CTRL
+                            LOCK_CTRL -->|3.2: Status| RFID_PROC
+                            
+                            LANDLORD -->|4.1: Stream Request| CAM_MGR
+                            CAM_MGR -->|4.2: Check Perms| AUTH
+                            CAM_MGR -->|4.3: Video Stream| LANDLORD
+                            CAMERA -->|4.4: MJPEG Feed| CAM_MGR
+                            
+                            TENANT -->|5.1: Submit Request| REQ_MGR
+                            REQ_MGR -->|5.2: Store Request| DB_REQUESTS
+                            LANDLORD -->|5.3: Approve/Reject| REQ_MGR
+                            REQ_MGR -->|5.4: Update Status| DB_REQUESTS
+                            
+                            AUTH -->|Verify Session| DB_USERS
+                            DB_USERS -->|User Data| AUTH
+                            
+                            RFID_PROC -->|2.3: Check Perms| DB_PERMS
+                            DB_PERMS -->|Card Status| RFID_PROC
+                            
+                            RFID_PROC -->|2.4: Log Access| DATA_MGR
+                            DATA_MGR -->|Store Record| DB_ACCESS
+                            DATA_MGR -->|Retrieve History| TENANT
+                            
+                            LANDLORD -->|View Reports| DATA_MGR
+                            DATA_MGR -->|Access Stats| LANDLORD
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="section">
+                <h2>📝 Overview</h2>
+                <p>DFD Level 1 decomposes the SecurAccess system into six major processes, showing how they interact with each other and with external entities and data stores. This view provides a detailed breakdown of system functionality.</p>
+            </div>
+
+            <!-- PROCESSES -->
+            <div class="section">
+                <h2>⚙️ System Processes</h2>
+                <table class="process-table">
+                    <thead>
+                        <tr>
+                            <th>Process ID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Key Functions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>1.0</strong></td>
+                            <td>Authentication & Authorization</td>
+                            <td>Validates user credentials and manages session tokens for both tenants and landlords</td>
+                            <td>Login, Verify credentials, Issue tokens, Check permissions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2.0</strong></td>
+                            <td>RFID Processing & Verification</td>
+                            <td>Receives RFID card data, verifies permissions, determines access decision</td>
+                            <td>Parse UID, Check database, Log attempt, Trigger lock</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3.0</strong></td>
+                            <td>Lock Control & State</td>
+                            <td>Manages electronic lock activation and monitors lock state</td>
+                            <td>Send unlock signal, Monitor servo, Track status</td>
+                        </tr>
+                        <tr>
+                            <td><strong>4.0</strong></td>
+                            <td>Camera Access Manager</td>
+                            <td>Handles camera stream requests with permission validation</td>
+                            <td>Verify permissions, Request stream, Forward MJPEG</td>
+                        </tr>
+                        <tr>
+                            <td><strong>5.0</strong></td>
+                            <td>Request & Approval Manager</td>
+                            <td>Manages tenant requests (access changes, profile updates)</td>
+                            <td>Store requests, Track status, Process approvals</td>
+                        </tr>
+                        <tr>
+                            <td><strong>6.0</strong></td>
+                            <td>Data Management & Logging</td>
+                            <td>Handles all database operations and access logging</td>
+                            <td>Store access logs, Retrieve history, Generate reports</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- DATA STORES -->
+            <div class="section">
+                <h2>💾 Data Stores</h2>
+                <ul class="datastore-list">
+                    <li><strong>D1: Users Database</strong> - Stores tenant and landlord account information, credentials, roles, contact info</li>
+                    <li><strong>D2: Access Log</strong> - Records all RFID scan attempts with timestamps, results, and card IDs</li>
+                    <li><strong>D3: Pending Requests</strong> - Queues pending approvals (new tenants, access changes, profile updates)</li>
+                    <li><strong>D4: Permissions</strong> - Maps approved RFID cards to tenants and their access permissions</li>
+                </ul>
+            </div>
+
+            <!-- KEY DATA FLOWS -->
+            <div class="section">
+                <h2>🔄 Critical Data Flows</h2>
+
+                <div class="flow-section">
+                    <h4>🔐 Authentication Flow (Process 1.0)</h4>
+                    <ul>
+                        <li>1.1: Tenant/Landlord submits login credentials</li>
+                        <li>1.2: System validates against D1 (Users)</li>
+                        <li>1.3: Issues session token and displays appropriate dashboard</li>
+                        <li>1.4: Returns user data and permissions</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>🔑 RFID Access Flow (Process 2.0 → 3.0)</h4>
+                    <ul>
+                        <li>2.1: RFID reader sends card ID</li>
+                        <li>2.2: System checks D4 for card permissions</li>
+                        <li>2.3: Determines apartment and access rights</li>
+                        <li>2.4: Sends unlock signal to Process 3.0</li>
+                        <li>2.5: Logs attempt in D2 (Access Log)</li>
+                        <li>2.6: Returns confirmation to RFID reader</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>🔒 Lock Control Flow (Process 3.0)</h4>
+                    <ul>
+                        <li>3.1: Receives unlock signal from RFID Processing</li>
+                        <li>3.2: Activates servo motor (0° → 90°)</li>
+                        <li>3.3: Holds unlock state for 10 seconds</li>
+                        <li>3.4: Automatically re-locks (90° → 0°)</li>
+                        <li>3.5: Maintains lock status for monitoring</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>📹 Camera Access Flow (Process 4.0)</h4>
+                    <ul>
+                        <li>4.1: Landlord requests stream for apartment</li>
+                        <li>4.2: System verifies permissions via Process 1.0</li>
+                        <li>4.3: Contacts ESP32 camera module</li>
+                        <li>4.4: Receives MJPEG stream</li>
+                        <li>4.5: Forwards to landlord dashboard</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>📋 Request Management Flow (Process 5.0)</h4>
+                    <ul>
+                        <li>5.1: Tenant submits request (profile change, access request)</li>
+                        <li>5.2: System stores in D3 (Pending Requests)</li>
+                        <li>5.3: Polls database for new pending items</li>
+                        <li>5.4: Landlord reviews and approves/rejects</li>
+                        <li>5.5: Updates D1 (Users) and D4 (Permissions) as needed</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>📊 Data Management Flow (Process 6.0)</h4>
+                    <ul>
+                        <li>6.1: Receives access records from RFID Processing</li>
+                        <li>6.2: Stores timestamped logs in D2</li>
+                        <li>6.3: Retrieves historical data for tenant dashboard</li>
+                        <li>6.4: Generates reports for landlord analytics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- INTEGRATION POINTS -->
+            <div class="section">
+                <h2>🔗 Process Integration</h2>
+                <div class="description-box">
+                    <strong>How Processes Work Together:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>1.0 feeds 2.0:</strong> Authentication provides user identity for permission checks</li>
+                        <li><strong>2.0 triggers 3.0:</strong> RFID verification signals the lock to activate</li>
+                        <li><strong>2.0 supplies 6.0:</strong> Access attempts are logged by data management</li>
+                        <li><strong>4.0 queries 1.0:</strong> Camera access requires permission validation</li>
+                        <li><strong>5.0 updates 1.0:</strong> Approved requests modify user permissions</li>
+                        <li><strong>All processes use 6.0:</strong> Every process relies on data management for storage/retrieval</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>DFD Level 1 - System Architecture Diagram | SecurAccess Project | February 2026</p>
+        </div>
+    </div>
+</body>
+</html>

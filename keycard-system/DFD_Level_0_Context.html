@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFD 0 - System Context Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4682b4 0%, #87ceeb 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4682b4;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .diagram-container {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .description-box {
+            background: #e8f4f8;
+            border-left: 4px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .entity-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .entity-table thead {
+            background: #4682b4;
+            color: white;
+        }
+
+        .entity-table th,
+        .entity-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .entity-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .data-flow-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .data-flow-list li {
+            padding: 10px 0;
+            color: #666;
+            border-bottom: 1px solid #eee;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .data-flow-list li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4682b4;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .diagram-container {
+                padding: 10px;
+                overflow-x: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DFD Level 0</h1>
+            <p>System Context Diagram - SecurAccess</p>
+        </div>
+
+        <div class="content">
+            <!-- DIAGRAM -->
+            <div class="section">
+                <h2>🔄 Context Diagram</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TB
+                            subgraph "SecurAccess System"
+                                SYSTEM["🔐 SecurAccess<br/>Access Control System"]
+                            end
+                            
+                            subgraph "External Entities"
+                                TENANT["👤 Tenant<br/>Resident"]
+                                LANDLORD["👨‍💼 Landlord/Admin<br/>Property Manager"]
+                                FIREBASE["☁️ Firebase<br/>Cloud Database"]
+                                RFID["📱 RFID Reader<br/>IoT Device"]
+                                LOCK["🔒 Electronic Lock<br/>Door Control"]
+                                CAMERA["📹 Camera<br/>CCTV Stream"]
+                            end
+                            
+                            TENANT -->|Login, View Access Records| SYSTEM
+                            SYSTEM -->|Display Dashboard| TENANT
+                            
+                            LANDLORD -->|Manage Approvals| SYSTEM
+                            SYSTEM -->|Display Settings| LANDLORD
+                            
+                            SYSTEM -->|Store/Retrieve Data| FIREBASE
+                            FIREBASE -->|Sync Data| SYSTEM
+                            
+                            RFID -->|Send Card ID| SYSTEM
+                            SYSTEM -->|Verify & Unlock| LOCK
+                            
+                            SYSTEM -->|Request Stream| CAMERA
+                            CAMERA -->|Live Feed| SYSTEM
+                            
+                            SYSTEM -->|Log Access| FIREBASE
+                    </div>
+                </div>
+            </div>
+
+            <!-- DESCRIPTION -->
+            <div class="section">
+                <h2>📝 Overview</h2>
+                <p>The Context Diagram (DFD Level 0) shows the SecurAccess system as a single process box interacting with six external entities. This high-level view represents the entire system's boundary and all external interactions.</p>
+            </div>
+
+            <!-- EXTERNAL ENTITIES -->
+            <div class="section">
+                <h2>👥 External Entities</h2>
+                <table class="entity-table">
+                    <thead>
+                        <tr>
+                            <th>Entity</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Key Interactions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Tenant</strong></td>
+                            <td>Actor</td>
+                            <td>Residential user who needs access to their apartment</td>
+                            <td>Scan RFID card, View access history, Manage profile</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Landlord/Admin</strong></td>
+                            <td>Actor</td>
+                            <td>Property manager who oversees all residents</td>
+                            <td>Approve requests, Monitor access, Manage permissions</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Firebase Cloud</strong></td>
+                            <td>Data Store</td>
+                            <td>Cloud-based database for persistent data storage</td>
+                            <td>Store records, Retrieve user data, Real-time sync</td>
+                        </tr>
+                        <tr>
+                            <td><strong>RFID Reader</strong></td>
+                            <td>Device</td>
+                            <td>IoT sensor that reads keycard data</td>
+                            <td>Send card IDs, Receive unlock commands</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Electronic Lock</strong></td>
+                            <td>Device</td>
+                            <td>Servo-controlled door lock mechanism</td>
+                            <td>Receive unlock signal, Unlock door for 10 seconds</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Camera</strong></td>
+                            <td>Device</td>
+                            <td>ESP32 camera module for live monitoring</td>
+                            <td>Stream video feed, Send MJPEG data</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- DATA FLOWS -->
+            <div class="section">
+                <h2>🔄 Data Flows</h2>
+                <h3>Tenant Interactions</h3>
+                <ul class="data-flow-list">
+                    <li><strong>Login Credentials:</strong> Tenant → System (email, password)</li>
+                    <li><strong>Dashboard Display:</strong> System → Tenant (access history, statistics)</li>
+                    <li><strong>Profile Update Request:</strong> Tenant → System (updated information)</li>
+                    <li><strong>Access Records:</strong> System → Tenant (RFID log with timestamps)</li>
+                </ul>
+
+                <h3>Landlord Interactions</h3>
+                <ul class="data-flow-list">
+                    <li><strong>Admin Login:</strong> Landlord → System (credentials)</li>
+                    <li><strong>Approval Decisions:</strong> Landlord → System (approve/reject requests)</li>
+                    <li><strong>Camera Commands:</strong> Landlord → System (select apartment, request stream)</li>
+                    <li><strong>Permission Changes:</strong> Landlord → System (grant/revoke access)</li>
+                    <li><strong>System Reports:</strong> System → Landlord (all logs, statistics)</li>
+                </ul>
+
+                <h3>Hardware Interactions</h3>
+                <ul class="data-flow-list">
+                    <li><strong>RFID Scan:</strong> Reader → System (card ID, timestamp)</li>
+                    <li><strong>Verify Response:</strong> System → Reader (confirmation)</li>
+                    <li><strong>Unlock Command:</strong> System → Lock (servo rotation signal)</li>
+                    <li><strong>Lock Status:</strong> Lock → System (locked/unlocked state)</li>
+                    <li><strong>Camera Stream:</strong> Camera → System (MJPEG video data)</li>
+                    <li><strong>Stream Request:</strong> System → Camera (connect, authenticate)</li>
+                </ul>
+
+                <h3>Database Interactions</h3>
+                <ul class="data-flow-list">
+                    <li><strong>Store Access Log:</strong> System → Firebase (RFID scan records)</li>
+                    <li><strong>Retrieve User Data:</strong> System → Firebase (tenant/admin info)</li>
+                    <li><strong>Update Database:</strong> System → Firebase (change approvals)</li>
+                    <li><strong>Real-time Sync:</strong> Firebase → System (listen for changes)</li>
+                </ul>
+            </div>
+
+            <!-- KEY PROCESSES -->
+            <div class="section">
+                <h2>⚙️ System Processes (Expanded at Level 1)</h2>
+                <div class="description-box">
+                    <strong>The following processes are shown as a single box at Level 0 but expanded in DFD Level 1:</strong>
+                    <ol style="margin-left: 20px; margin-top: 10px;">
+                        <li>User Authentication (login, verify credentials)</li>
+                        <li>Request Management (approve/reject changes)</li>
+                        <li>RFID Processing (verify card, check permissions)</li>
+                        <li>Lock Control (activate servo, monitor status)</li>
+                        <li>Camera Access (verify permissions, stream video)</li>
+                        <li>Data Management (store, retrieve, sync records)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>DFD Level 0 - System Context Diagram | SecurAccess Project | February 2026</p>
+        </div>
+    </div>
+</body>
+</html>

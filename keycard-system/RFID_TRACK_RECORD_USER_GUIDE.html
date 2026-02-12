@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RFID Track Record - User Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .section h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            line-height: 1.6;
+        }
+
+        .feature-list li:before {
+            content: "✓";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+
+        .info-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .step-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 36px;
+            height: 36px;
+            background: #667eea;
+            color: white;
+            text-align: center;
+            line-height: 36px;
+            border-radius: 50%;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-description {
+            color: #666;
+            margin-left: 48px;
+            margin-top: -28px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        thead {
+            background: #667eea;
+            color: white;
+        }
+
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .badge-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .badge-danger {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .badge-warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .stat-example {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .faq-item {
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            background: #f5f5f5;
+            padding: 15px;
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .faq-question:hover {
+            background: #efefef;
+        }
+
+        .faq-answer {
+            padding: 15px;
+            color: #666;
+            display: none;
+        }
+
+        .faq-answer.active {
+            display: block;
+        }
+
+        .emoji {
+            font-size: 20px;
+            margin-right: 8px;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th, td {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔐 RFID Track Record</h1>
+            <p>Monitor Your Access History in Real-Time</p>
+        </div>
+
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="section">
+                <h2><span class="emoji">📊</span> Overview</h2>
+                <p>The RFID Track Record feature allows you to view all your access attempts to your property in real-time. Track every entry and exit, see if attempts were successful or denied, and monitor when and where access occurred.</p>
+                
+                <div class="info-box">
+                    <strong>💡 Tip:</strong> This helps you identify any unauthorized attempts or verify that your keycard is working properly.
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="section">
+                <h2><span class="emoji">✨</span> Key Features</h2>
+                <ul class="feature-list">
+                    <li><strong>Real-Time Updates:</strong> See new access attempts instantly without refreshing</li>
+                    <li><strong>Detailed History:</strong> View all your RFID scans with full details</li>
+                    <li><strong>Statistics:</strong> Monitor total accesses, today's count, and last access time</li>
+                    <li><strong>Date Filtering:</strong> Filter records by specific dates</li>
+                    <li><strong>Status Indicators:</strong> Clearly see which attempts were allowed or denied</li>
+                </ul>
+            </div>
+
+            <!-- How to Use Section -->
+            <div class="section">
+                <h2><span class="emoji">🚀</span> How to Use</h2>
+                
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">1</span>
+                        Login to Dashboard
+                    </div>
+                    <div class="step-description">
+                        Login to your tenant dashboard using your email and password.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">2</span>
+                        Click RFID Track Record
+                    </div>
+                    <div class="step-description">
+                        In the left sidebar, click the "RFID Track Record" tab to view your access history.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">3</span>
+                        View Your Statistics
+                    </div>
+                    <div class="step-description">
+                        See three quick stats: Total Access Count, Today's Access count, and your Last Access time.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">4</span>
+                        Review Access History
+                    </div>
+                    <div class="step-description">
+                        Browse the table showing all your recent access attempts with timestamps, status, location, and duration.
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-title">
+                        <span class="step-number">5</span>
+                        Filter by Date (Optional)
+                    </div>
+                    <div class="step-description">
+                        Select a date in the filter, then click "Apply Filter" to see only records from that day. Click "Reset" to view all records.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Understanding the Data Section -->
+            <div class="section">
+                <h2><span class="emoji">📋</span> Understanding Your Data</h2>
+
+                <h3>Statistics Cards</h3>
+                <div class="stat-example">
+                    <div class="stat-card">
+                        <div class="stat-label">Total Access Count</div>
+                        <div class="stat-value">157</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Today's Access</div>
+                        <div class="stat-value">5</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">Last Access</div>
+                        <div class="stat-value">2:45 PM</div>
+                    </div>
+                </div>
+
+                <h3>Access History Table</h3>
+                <p>Each row shows one access attempt with the following information:</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Column</th>
+                            <th>Meaning</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Timestamp</strong></td>
+                            <td>Date and exact time of the scan</td>
+                            <td>01/22/2026 02:45:30 PM</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status</strong></td>
+                            <td>Whether access was granted or denied</td>
+                            <td><span class="badge badge-success">Allowed</span> or <span class="badge badge-danger">Denied</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Location</strong></td>
+                            <td>Where the RFID scanner is located</td>
+                            <td>Main Entrance</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duration</strong></td>
+                            <td>Time taken to process the scan (seconds)</td>
+                            <td>2 seconds</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Status Meanings</h3>
+                <div class="info-box">
+                    <div style="margin-bottom: 12px;">
+                        <span class="badge badge-success">✓ Allowed</span>
+                        <strong>= Access Granted:</strong> Your keycard was valid and you gained access.
+                    </div>
+                    <div style="margin-bottom: 12px;">
+                        <span class="badge badge-danger">✗ Denied</span>
+                        <strong>= Access Denied:</strong> Your keycard was invalid, inactive, or not recognized. Check with your landlord.
+                    </div>
+                    <div>
+                        <span class="badge badge-warning">? Pending</span>
+                        <strong>= Pending:</strong> The system is processing your scan.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-Time Features Section -->
+            <div class="section">
+                <h2><span class="emoji">⚡</span> Real-Time Features</h2>
+                <p>The RFID Track Record automatically updates in real-time as you scan your keycard. You don't need to refresh the page!</p>
+
+                <ul class="feature-list">
+                    <li>New scans appear instantly at the top of the table</li>
+                    <li>Statistics update automatically</li>
+                    <li>Last Access time updates immediately</li>
+                    <li>Today's count increases with each successful scan</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>⚙️ Behind the Scenes:</strong> We use Firebase Realtime Database technology to show you your data instantly. The connection stays open and listens for new scans from your RFID reader devices.
+                </div>
+            </div>
+
+            <!-- Common Scenarios Section -->
+            <div class="section">
+                <h2><span class="emoji">❓</span> Common Scenarios</h2>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        I see a "Denied" status - what should I do?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>A "Denied" status means your keycard was not accepted. This could be because:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>Your keycard is deactivated</li>
+                            <li>Your keycard has expired</li>
+                            <li>Your keycard is not properly configured</li>
+                            <li>There's a temporary system issue</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Action:</strong> Contact your landlord to check your keycard status.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Why is my access history empty?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Your history might be empty because:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>You just signed up and haven't used your keycard yet</li>
+                            <li>Your keycard has never been scanned at the reader</li>
+                            <li>The records are older than what's shown (we keep recent records)</li>
+                        </ul>
+                        <p style="margin-top: 10px;"><strong>Action:</strong> Try scanning your keycard at the entrance and check back in a few seconds.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Can I see records from years ago?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The dashboard shows your recent access history. The exact duration depends on your system's configuration. However:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li>You can filter by date using the date picker</li>
+                            <li>Very old records may have been archived</li>
+                            <li>Contact your landlord if you need historical data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFaq(this)">
+                        Is my access data secure?
+                        <span>▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Your access data is secured by:</p>
+                        <ul style="margin-left: 20px; margin-top: 10px;">
+                            <li><strong>Encryption:</strong> All data is encrypted in transit</li>
+                            <li><strong>Authentication:</strong> You must be logged in to view your data</li>
+                            <li><strong>Permissions:</strong> You can only see your own records (not other residents')</li>
+                            <li><strong>Landlord Access:</strong> Your landlord can view records for security purposes</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Troubleshooting Section -->
+            <div class="section">
+                <h2><span class="emoji">🔧</span> Troubleshooting</h2>
+
+                <div class="step-card">
+                    <strong>Issue: Records not loading or showing "Loading..."</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solution:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Try refreshing the page (Ctrl+F5 or Cmd+Shift+R for hard refresh)</li>
+                            <li>Check your internet connection</li>
+                            <li>Log out and log back in</li>
+                            <li>Try a different browser</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <strong>Issue: Real-time updates not working</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solution:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Check your internet connection</li>
+                            <li>Make sure the page is still open (background tabs may pause)</li>
+                            <li>Refresh the page to reconnect</li>
+                            <li>Check your browser's privacy settings (some block real-time connections)</li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <strong>Issue: Getting permission errors</strong>
+                    <div style="margin-top: 10px; color: #666;">
+                        <p><strong>Solution:</strong></p>
+                        <ol style="margin-left: 20px;">
+                            <li>Verify you're logged in correctly</li>
+                            <li>Clear your browser cache and cookies</li>
+                            <li>Log out completely and log back in</li>
+                            <li>Contact your landlord if the issue persists</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips and Best Practices -->
+            <div class="section">
+                <h2><span class="emoji">💡</span> Tips & Best Practices</h2>
+                <ul class="feature-list">
+                    <li>Check your track record regularly to verify your keycard is working properly</li>
+                    <li>Use the date filter to find specific access events</li>
+                    <li>Note the "Last Access" time to confirm your most recent entry/exit</li>
+                    <li>If you see denied attempts, contact your landlord immediately</li>
+                    <li>Keep track of high-frequency access days for your records</li>
+                    <li>Use this feature to investigate any unauthorized access attempts</li>
+                </ul>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="section">
+                <h2><span class="emoji">📞</span> Need Help?</h2>
+                <p>If you encounter any issues or have questions about your RFID Track Record:</p>
+                <div class="info-box">
+                    <strong>📧 Contact Your Landlord:</strong> They have access to your account and can help troubleshoot any issues with your keycard or access records.
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>RFID Track Record User Guide | Smart Keycard Access System | Last Updated: January 2026</p>
+        </div>
+    </div>
+
+    <script>
+        function toggleFaq(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+            const arrow = element.querySelector('span');
+            if (arrow) {
+                arrow.style.transform = answer.classList.contains('active') ? 'rotate(180deg)' : 'rotate(0deg)';
+                arrow.style.transition = 'transform 0.3s';
+            }
+        }
+    </script>
+</body>
+</html>

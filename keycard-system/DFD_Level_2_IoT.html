@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DFD 2 - IoT Integration Diagram</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #87ceeb 0%, #4682b4 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4682b4 0%, #87ceeb 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h2 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #4682b4;
+        }
+
+        .section h3 {
+            color: #555;
+            font-size: 18px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .diagram-container {
+            background: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .mermaid {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .description-box {
+            background: #e8f4f8;
+            border-left: 4px solid #4682b4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .device-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .device-table thead {
+            background: #4682b4;
+            color: white;
+        }
+
+        .device-table th,
+        .device-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .device-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .protocol-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .protocol-table thead {
+            background: #4682b4;
+            color: white;
+        }
+
+        .protocol-table th,
+        .protocol-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .protocol-table tbody tr:hover {
+            background: #f9f9f9;
+        }
+
+        .flow-section {
+            background: #f0f8ff;
+            border: 1px solid #87ceeb;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+
+        .flow-section h4 {
+            color: #4682b4;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .flow-section ul {
+            list-style-position: inside;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .flow-section li {
+            margin-bottom: 8px;
+            padding-left: 5px;
+        }
+
+        .timeline {
+            background: #f0f8ff;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+
+        .timeline h4 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .timeline-step {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #555;
+            position: relative;
+        }
+
+        .timeline-step:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+        }
+
+        .footer {
+            background: #f5f5f5;
+            padding: 20px;
+            text-align: center;
+            color: #999;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .code-block {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #333;
+            overflow-x: auto;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+
+            .diagram-container {
+                padding: 10px;
+                overflow-x: scroll;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 DFD Level 2</h1>
+            <p>IoT Integration & Device Control Diagram</p>
+        </div>
+
+        <div class="content">
+            <!-- DIAGRAM -->
+            <div class="section">
+                <h2>🔄 IoT Data Flow Architecture</h2>
+                <div class="diagram-container">
+                    <div class="mermaid">
+                        graph TB
+                            subgraph "IoT Devices Layer"
+                                RFID_DEVICE["📱 RFID Reader<br/>Arduino/ESP8266<br/>50W-125kHz"]
+                                CAMERA_DEVICE["📹 ESP32 Camera<br/>MJPEG Streaming<br/>1280x1024"]
+                                SERVO["🔧 Servo Motor<br/>0-90° Rotation<br/>5V PWM Control"]
+                                NETWORK["📡 Network<br/>WiFi 2.4GHz<br/>Local/Cloud"]
+                            end
+                            
+                            subgraph "System Processes"
+                                RFID_PROC["2.1<br/>Parse RFID<br/>Data"]
+                                VERIFY["2.2<br/>Verify Card<br/>Permissions"]
+                                DECISION["2.3<br/>Access<br/>Decision"]
+                                UNLOCK_CMD["3.1<br/>Unlock<br/>Command"]
+                                STREAM_MGR["4.1<br/>Camera<br/>Stream Manager"]
+                                LOG["6.2<br/>Log to<br/>Database"]
+                            end
+                            
+                            subgraph "Data Stores"
+                                PERM_DB["D4: Card<br/>Permissions"]
+                                LOG_DB["D2: Access<br/>Log"]
+                            end
+                            
+                            RFID_DEVICE -->|"Raw UART Data<br/>(UID + Timestamp)"| RFID_PROC
+                            RFID_PROC -->|"Parsed UID<br/>(hexadecimal)"| VERIFY
+                            VERIFY -->|"Check Permission<br/>(Query)"| PERM_DB
+                            PERM_DB -->|"Access Status"| VERIFY
+                            VERIFY -->|"Allow/Deny Decision"| DECISION
+                            
+                            DECISION -->|"Unlock OK"| UNLOCK_CMD
+                            DECISION -->|"Access Denied"| LOG
+                            
+                            UNLOCK_CMD -->|"PWM Signal<br/>3.3V-5V"| SERVO
+                            SERVO -->|"Status Feedback<br/>(Position)"| UNLOCK_CMD
+                            
+                            DECISION -->|"Record Attempt"| LOG
+                            VERIFY -->|"Card Details"| LOG
+                            LOG -->|"Store Record"| LOG_DB
+                            
+                            NETWORK -->|"HTTPS Request"| STREAM_MGR
+                            STREAM_MGR -->|"Activate Camera"| CAMERA_DEVICE
+                            CAMERA_DEVICE -->|"MJPEG Stream<br/>(continuous)"| NETWORK
+                            NETWORK -->|"Relay to Dashboard"| STREAM_MGR
+                    </div>
+                </div>
+            </div>
+
+            <!-- OVERVIEW -->
+            <div class="section">
+                <h2>📝 Overview</h2>
+                <p>DFD Level 2 - IoT Integration details the hardware device interactions, communication protocols, and control signals. This diagram shows how Arduino/ESP8266 RFID readers, ESP32 cameras, and servo motors integrate with the SecurAccess system.</p>
+            </div>
+
+            <!-- DEVICES -->
+            <div class="section">
+                <h2>🔌 IoT Devices Specifications</h2>
+                <table class="device-table">
+                    <thead>
+                        <tr>
+                            <th>Device</th>
+                            <th>Microcontroller</th>
+                            <th>Protocol</th>
+                            <th>Function</th>
+                            <th>Data Output</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>RFID Reader</strong></td>
+                            <td>Arduino UNO / ESP8266</td>
+                            <td>UART/Serial (9600 baud)</td>
+                            <td>Detect RFID card proximity and read UID</td>
+                            <td>10-12 character HEX ID + LF</td>
+                        </tr>
+                        <tr>
+                            <td><strong>ESP32 Camera</strong></td>
+                            <td>ESP32-CAM</td>
+                            <td>WiFi (802.11 b/g/n)</td>
+                            <td>Capture and stream apartment entrance video</td>
+                            <td>MJPEG stream (30 fps, 1280x1024)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Servo Motor</strong></td>
+                            <td>PWM Control via GPIO</td>
+                            <td>PWM (50Hz, 1000-2000µs pulse)</td>
+                            <td>Control magnetic lock (0° locked, 90° unlocked)</td>
+                            <td>Position feedback (analog voltage)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Network Interface</strong></td>
+                            <td>WiFi Module / Ethernet</td>
+                            <td>HTTP/HTTPS, WebSocket</td>
+                            <td>Connect devices to cloud and dashboard</td>
+                            <td>JSON payloads, status updates</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- COMMUNICATION PROTOCOLS -->
+            <div class="section">
+                <h2>📡 Communication Protocols</h2>
+                <table class="protocol-table">
+                    <thead>
+                        <tr>
+                            <th>Protocol</th>
+                            <th>Speed/Frequency</th>
+                            <th>Data Format</th>
+                            <th>Purpose</th>
+                            <th>Example Payload</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>UART Serial</strong></td>
+                            <td>9600 baud</td>
+                            <td>ASCII + LF terminator</td>
+                            <td>RFID → Reader → Server</td>
+                            <td>04B21F2A5C 0A</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PWM Control</strong></td>
+                            <td>50 Hz (10ms period)</td>
+                            <td>1000-2000µs pulse width</td>
+                            <td>Servo lock control</td>
+                            <td>1500µs = 90° unlock</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WiFi HTTPS</strong></td>
+                            <td>802.11b/g/n 2.4GHz</td>
+                            <td>JSON over HTTPS</td>
+                            <td>Camera stream setup, Commands</td>
+                            <td>{"action":"stream","apt":"101"}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MJPEG Stream</strong></td>
+                            <td>Continuous 30 fps</td>
+                            <td>Multipart/x-mixed-replace</td>
+                            <td>Live video feed</td>
+                            <td>Binary image data chunks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>WebSocket</strong></td>
+                            <td>Real-time bidirectional</td>
+                            <td>JSON events</td>
+                            <td>Real-time status updates</td>
+                            <td>{"event":"access","status":"denied"}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- RFID FLOW -->
+            <div class="section">
+                <h2>🔑 RFID Access Flow (Detailed)</h2>
+
+                <div class="timeline">
+                    <h4>⏱️ Complete RFID Process Timeline (0-5 seconds)</h4>
+                    <div class="timeline-step"><strong>T=0ms:</strong> Card brought near RFID reader antenna</div>
+                    <div class="timeline-step"><strong>T=50ms:</strong> Reader detects card (field generation activates)</div>
+                    <div class="timeline-step"><strong>T=100ms:</strong> Card responds with UID data via RF link</div>
+                    <div class="timeline-step"><strong>T=150ms:</strong> Reader receives 10-char HEX data</div>
+                    <div class="timeline-step"><strong>T=200ms:</strong> Reader sends via UART (9600 baud = ~10ms per char)</div>
+                    <div class="timeline-step"><strong>T=300ms:</strong> Server receives complete UID string</div>
+                    <div class="timeline-step"><strong>T=350ms:</strong> Database lookup (Firebase Permissions query)</div>
+                    <div class="timeline-step"><strong>T=450ms:</strong> Access decision made (Allow/Deny)</div>
+                    <div class="timeline-step"><strong>T=500ms:</strong> IF allowed: servo activation signal sent</div>
+                    <div class="timeline-step"><strong>T=550ms:</strong> Servo receives PWM signal, rotates to 90°</div>
+                    <div class="timeline-step"><strong>T=650ms:</strong> Magnetic lock opens (door unlocked)</div>
+                    <div class="timeline-step"><strong>T=700ms:</strong> Access record logged to Firebase</div>
+                    <div class="timeline-step"><strong>T=10.7s:</strong> 10-second timeout elapsed</div>
+                    <div class="timeline-step"><strong>T=10.75s:</strong> Servo PWM signal changes to 0°</div>
+                    <div class="timeline-step"><strong>T=10.85s:</strong> Magnetic lock re-engages (door locked)</div>
+                </div>
+
+                <div class="flow-section">
+                    <h4>Process 2.1: Parse RFID Data</h4>
+                    <ul>
+                        <li>Receive raw UART data from RFID reader (e.g., "04B21F2A5C")</li>
+                        <li>Validate length (10-12 characters)</li>
+                        <li>Check for valid hexadecimal format</li>
+                        <li>Record timestamp (milliseconds precision)</li>
+                        <li>Forward UID to verification process</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>Process 2.2: Verify Card Permissions</h4>
+                    <ul>
+                        <li><strong>Query D4 (Permissions):</strong> Look up card UID in database</li>
+                        <li><strong>Check Status:</strong> Verify card is active and not revoked</li>
+                        <li><strong>Get Tenant Info:</strong> Retrieve associated tenant and apartment</li>
+                        <li><strong>Check Apartment:</strong> Verify tenant lives in current apartment</li>
+                        <li><strong>Return Permission:</strong> Pass allow/deny decision to access decision</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>Process 2.3: Access Decision</h4>
+                    <ul>
+                        <li><strong>IF Permission = Allow:</strong> Proceed to lock activation</li>
+                        <li><strong>IF Permission = Deny:</strong> Log denied attempt, send feedback to reader</li>
+                        <li><strong>IF Card Not Found:</strong> Log unknown card, no unlock</li>
+                        <li><strong>IF Tenant Deactivated:</strong> Log and reject, send notification</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- LOCK CONTROL -->
+            <div class="section">
+                <h2>🔒 Lock Control Flow (Detailed)</h2>
+
+                <div class="flow-section">
+                    <h4>Process 3.1: Servo Motor Control</h4>
+                    <ul>
+                        <li><strong>Signal Reception:</strong> Receive unlock command from process 2.3</li>
+                        <li><strong>PWM Generation:</strong> Calculate pulse width for 90° rotation (typically 1500µs at 50Hz)</li>
+                        <li><strong>GPIO Output:</strong> Send PWM signal to servo on designated GPIO pin</li>
+                        <li><strong>Rotation:</strong> Servo rotates from 0° (locked) to 90° (unlocked) over ~500ms</li>
+                        <li><strong>Hold Position:</strong> Maintain PWM signal for 10 seconds</li>
+                        <li><strong>Auto-Lock:</strong> After 10 seconds, change PWM to 0° (auto-return)</li>
+                        <li><strong>Status Feedback:</strong> Send position confirmation back to system</li>
+                    </ul>
+                </div>
+
+                <div class="description-box">
+                    <strong>PWM Signal Details:</strong>
+                    <div class="code-block">
+Locked State:   PWM = 1000µs at 50Hz (0° position)<br/>
+Unlocked State: PWM = 1500µs at 50Hz (90° position)<br/>
+Period: 20ms (50Hz frequency)<br/>
+Duty Cycle: 5-10% depending on position
+                    </div>
+                </div>
+            </div>
+
+            <!-- CAMERA FLOW -->
+            <div class="section">
+                <h2>📹 Camera Stream Flow (Detailed)</h2>
+
+                <div class="flow-section">
+                    <h4>Process 4.1: Camera Access Manager</h4>
+                    <ul>
+                        <li><strong>Stream Request:</strong> Landlord selects apartment camera on dashboard</li>
+                        <li><strong>Permission Check:</strong> System verifies landlord has access rights</li>
+                        <li><strong>Device Activation:</strong> Send HTTP request to ESP32 camera module</li>
+                        <li><strong>Camera Response:</strong> ESP32 starts MJPEG stream on port 81</li>
+                        <li><strong>Stream Relay:</strong> System receives MJPEG, forwards to dashboard</li>
+                        <li><strong>Continuous Feed:</strong> 30 FPS stream maintains in real-time (multiple chunks per second)</li>
+                        <li><strong>Stream Termination:</strong> Stop relay when landlord closes camera view</li>
+                    </ul>
+                </div>
+
+                <div class="description-box">
+                    <strong>MJPEG Stream Protocol:</strong>
+                    <div class="code-block">
+Content-Type: multipart/x-mixed-replace; boundary=frame<br/>
+--frame<br/>
+Content-Type: image/jpeg<br/>
+Content-Length: 15234<br/>
+[JPEG Binary Data 15234 bytes]<br/>
+--frame<br/>
+[Next frame follows...]<br/>
+<br/>
+Typical stream: 30+ boundary sections per second
+                    </div>
+                </div>
+            </div>
+
+            <!-- LOGGING FLOW -->
+            <div class="section">
+                <h2>📊 Data Logging Flow (Detailed)</h2>
+
+                <div class="flow-section">
+                    <h4>Process 6.2: Access Logging to Firebase</h4>
+                    <ul>
+                        <li><strong>Collect Data:</strong> Gather RFID scan result, apartment, timestamp</li>
+                        <li><strong>Build Record:</strong> Create JSON object with all scan details</li>
+                        <li><strong>Add Metadata:</strong> Include result (allowed/denied), duration if unlocked</li>
+                        <li><strong>Firebase Write:</strong> Push record to Access Log collection (D2)</li>
+                        <li><strong>Real-time Sync:</strong> All connected clients updated via listeners</li>
+                        <li><strong>Timestamp Server:</strong> Use Firebase server timestamp for accuracy</li>
+                    </ul>
+                </div>
+
+                <div class="description-box">
+                    <strong>Firebase Record Structure:</strong>
+                    <div class="code-block">
+{<br/>
+  "cardID": "04B21F2A5C",<br/>
+  "apartment": "APT 101",<br/>
+  "timestamp": 1708957234567,<br/>
+  "result": "allowed",<br/>
+  "duration": 10000,<br/>
+  "tenant": "john@example.com",<br/>
+  "lockState": "unlocked"<br/>
+}
+                    </div>
+                </div>
+            </div>
+
+            <!-- NETWORK ARCHITECTURE -->
+            <div class="section">
+                <h2>🌐 Network Architecture</h2>
+                <div class="description-box">
+                    <strong>Device Connectivity Model:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>RFID Reader:</strong> Connected via UART to host server (local/LAN)</li>
+                        <li><strong>ESP32 Camera:</strong> Connected via WiFi to local network, accessible via HTTP</li>
+                        <li><strong>Server:</strong> Communicates with Firebase (HTTPS) and WebSocket for real-time updates</li>
+                        <li><strong>Dashboard:</strong> WebSocket connection for real-time RFID updates, HTTPS for general API</li>
+                        <li><strong>Latency Target:</strong> RFID decision &lt; 1 second, Camera stream &lt; 2 seconds</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- ERROR HANDLING -->
+            <div class="section">
+                <h2>⚠️ Error Handling & Failure Modes</h2>
+
+                <div class="flow-section">
+                    <h4>RFID Failures</h4>
+                    <ul>
+                        <li><strong>No Card Detected:</strong> Reader doesn't respond → log attempt as timeout</li>
+                        <li><strong>Invalid UID:</strong> Malformed data → discard, request retry</li>
+                        <li><strong>Database Lookup Failure:</strong> Firebase timeout → deny access for safety</li>
+                        <li><strong>Unknown Card:</strong> UID not in database → log suspicious activity</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>Lock Failures</h4>
+                    <ul>
+                        <li><strong>Servo Not Responding:</strong> No PWM acknowledgment → alert administrator</li>
+                        <li><strong>Lock Stuck Open:</strong> Position feedback error after 10sec → force lock attempt</li>
+                        <li><strong>Power Loss:</strong> Servo returns to locked state (spring-loaded)</li>
+                    </ul>
+                </div>
+
+                <div class="flow-section">
+                    <h4>Camera Failures</h4>
+                    <ul>
+                        <li><strong>Stream Unavailable:</strong> ESP32 not responding → display error message</li>
+                        <li><strong>Network Disconnected:</strong> WiFi lost → automatic reconnection attempt</li>
+                        <li><strong>Bandwidth Exceeded:</strong> Frame drop → reduce resolution</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>DFD Level 2 - IoT Integration Diagram | SecurAccess Project | February 2026</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,375 @@
+/* Camera Stream Styling */
+
+.camera-feed-container {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.camera-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  background: #f0f1f3;
+  border-radius: 6px;
+}
+
+.camera-controls label {
+  font-weight: 500;
+  color: #333;
+  min-width: 120px;
+}
+
+.camera-controls select,
+.apartment-selection select {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  background: white;
+}
+
+.camera-controls button {
+  white-space: nowrap;
+}
+
+/* Apartment Selection */
+.apartment-selection {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 15px;
+  background: #f5f5f5;
+  border-radius: 8px;
+}
+
+.apartment-selection label {
+  font-weight: 600;
+  color: var(--text-dark);
+  min-width: auto;
+}
+
+/* PIN Verification Interface */
+.camera-access {
+  background: #1a1f3a;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camera-access h3 {
+  color: var(--sky-blue);
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+}
+
+.apartment-buttons {
+  margin-bottom: 30px;
+}
+
+.apartment-button-label {
+  display: block;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+#apartmentButtons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.apartment-filter-btn,
+.apartment-btn {
+  padding: 12px 24px;
+  border: 2px solid var(--sky-blue);
+  background: transparent;
+  color: var(--sky-blue);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+  min-width: 100px;
+}
+
+.apartment-filter-btn:hover,
+.apartment-btn:hover {
+  background: var(--sky-blue);
+  color: #1a1f3a;
+}
+
+.apartment-filter-btn.active,
+.apartment-btn.active {
+  background: var(--success);
+  border-color: var(--success);
+  color: white;
+}
+
+#selectedApartmentText {
+  color: var(--sky-blue);
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  display: block;
+}
+
+#landlordCameraPin,
+#tenantCameraPin,
+.pin-input {
+  width: 100%;
+  max-width: 350px;
+  padding: 16px;
+  border: 2px solid var(--sky-blue);
+  background: #0f1419;
+  color: var(--white);
+  font-size: 18px;
+  text-align: center;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  letter-spacing: 8px;
+  font-weight: 600;
+  font-family: monospace;
+}
+
+#landlordCameraPin::placeholder,
+#tenantCameraPin::placeholder,
+.pin-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#landlordCameraPin:focus,
+#tenantCameraPin:focus,
+.pin-input:focus {
+  outline: none;
+  border-color: var(--sky-blue);
+  box-shadow: 0 0 10px rgba(135, 206, 235, 0.3);
+  background: #151b2f;
+}
+
+#landlordVerifyPinBtn,
+#tenantVerifyPinBtn,
+.verify-btn {
+  width: 100%;
+  max-width: 350px;
+  padding: 14px;
+  background: var(--success);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-bottom: 15px;
+}
+
+#landlordVerifyPinBtn:hover,
+#tenantVerifyPinBtn:hover,
+.verify-btn:hover {
+  background: #3d8b40;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+#landlordPinError,
+#tenantPinError,
+.pin-error {
+  color: #ff6b6b;
+  font-size: 14px;
+  margin-top: 10px;
+  display: block;
+}
+
+/* Camera Feed Display */
+#landlordCameraFeed,
+#tenantCameraFeed {
+  margin-top: 20px;
+}
+
+.camera-feed-display {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.camera-feed-display h3 {
+  color: var(--sky-blue-dark);
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.video-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 20px auto;
+  background: #000;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  aspect-ratio: 16 / 9;
+}
+
+.camera-stream {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: #000;
+  object-fit: cover;
+}
+
+.camera-status {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.camera-status span {
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: #e3f2fd;
+  color: #1976d2;
+}
+
+.status-connecting {
+  background: #fff3cd !important;
+  color: #856404 !important;
+}
+
+.status-connected {
+  background: #d4edda !important;
+  color: #155724 !important;
+}
+
+.status-error {
+  background: #f8d7da !important;
+  color: #721c24 !important;
+}
+
+.status-disconnected {
+  background: #e2e3e5 !important;
+  color: #383d41 !important;
+}
+
+.camera-info {
+  background: #fff;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 20px;
+  border-left: 4px solid var(--sky-blue);
+}
+
+.camera-info p {
+  margin: 8px 0;
+  font-size: 14px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.camera-info strong {
+  color: #333;
+}
+
+.status-indicator {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-indicator.status-connected {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-indicator.status-error {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-indicator.status-disconnected {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.status-indicator.status-connecting {
+  background: #fff3cd;
+  color: #856404;
+}
+
+#noCameraMessage {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-style: italic;
+  background: #f9f9f9;
+  border-radius: 6px;
+  border: 1px dashed #ccc;
+}
+
+.camera-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.camera-buttons button {
+  flex: 1;
+  min-width: 150px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .camera-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .camera-controls label {
+    min-width: auto;
+  }
+
+  .camera-controls select,
+  .camera-controls button {
+    width: 100%;
+  }
+
+  .video-wrapper {
+    max-width: 100%;
+  }
+
+  .camera-info p {
+    flex-direction: column;
+  }
+
+  .camera-info span {
+    margin-top: 4px;
+  }
+}
