@@ -1,4 +1,0 @@
-Please place your logo file here as "logo.jpg"
-The logo should be in JPG format and will be displayed on all pages.
-
-Recommended size: 150x150 pixels or similar square dimensions.
